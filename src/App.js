@@ -3,12 +3,35 @@ import './App.css';
 import Block from './blockchain/src/blockchain/block';
 import Blockchain from './blockchain/src/blockchain/blockchain';
 import P2PService from './blockchain/src/service/p2p';
+import BlocksTable from './containers/BlocksTable';
+import Navbar from './components/navbar';
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import React, { Component } from 'react'
+import Select from 'react-select'
+import MainPage from './components/MainPage';
 
 //import blockchainFront from './blockchain/src/service/index';
 //const { blockchainFront as blockchain} = indexApp; 
 const blockchain = new Blockchain();
 //instancia P2P service inicializada con instancia de blockchain
 const p2pService = new P2PService(blockchain);
+
+
+
+const options = [
+  { value: 'transactions', label: 'Transactions', for: 'item1'},
+  { value: 'blocks', label: 'Blocks'},
+
+
+]
+
+const MyComponent = () => (
+  <Select class="list" id="select"  na options={options} />
+  
+)
+
+
+
 
 
 function tableRow() {
@@ -43,13 +66,23 @@ function tableRow() {
 function App() {
   let block = new Block(12342132, undefined, 'g3n3s1s-h4sh', 'i like ramen.', 0, 3);
   console.log(blockchain.blocks[0].data);
+
   p2pService.sync();
   return (
     <div className="App">
+      
       <header className="App-header">
-        <div  className="div1" alt="logo">
+      <Router>
+      <Navbar />
+      
+    </Router>
+    {MyComponent()}
+        <div className="div1" alt="logo">
+      
+          
         <table>
-          <caption>WhitePaper</caption>
+          
+          
           <th>ID</th>
           <th>HASH</th>  
           <th>PREVIOUS HASH</th>
@@ -57,6 +90,7 @@ function App() {
           <th>DATE</th>
           <th>DIFF</th>
           {tableRow()}
+          <BlocksTable/>
           <tr>
             <td>1</td>
             <td>{block.hash}</td>
@@ -68,18 +102,10 @@ function App() {
           </tr>
         </table>
       
-        <button onClick={handleClick}>HOLA</button>
+        
         </div>
-       
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+       </header>
+        
     </div>
   );
 }
