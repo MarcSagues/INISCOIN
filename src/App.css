@@ -76,12 +76,14 @@ table td {
   text-align: center;
   font-size: .65em;
   
+  
 }
 
 table th {
   font-size: .65em;
   text-transform: uppercase;
-  
+  background-color: #3578e3;
+  color: white;
 }
 
 @media screen and (max-width: 600px) {
@@ -143,5 +145,8 @@ table th {
   top: 4em;
   width: 30vmin;
   color: black; 
+  border: none;
+  outline: none;
+  scroll-behavior: smooth;
   
 }

@@ -5,10 +5,17 @@ import Blockchain from './blockchain/src/blockchain/blockchain';
 import P2PService from './blockchain/src/service/p2p';
 import BlocksTable from './containers/BlocksTable';
 import Navbar from './components/navbar';
-import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Switch, Route, Redirect } from 'react-router-dom';
 import React, { Component } from 'react'
 import Select from 'react-select'
 import MainPage from './components/MainPage';
+import Mine from './pages/mine'
+import Home from './pages/home'
+import SingIn from './pages/singin'
+import SingUp from './pages/singup'
+import './pages/styles/mine.css'
+
+
 
 //import blockchainFront from './blockchain/src/service/index';
 //const { blockchainFront as blockchain} = indexApp; 
@@ -25,43 +32,22 @@ const options = [
 
 ]
 
-const MyComponent = () => (
-  <Select class="list" id="select"  na options={options} />
-  
-)
-
-
-
-
-
-function tableRow() {
-  let arrayHTML = []
-  for (let index = 0; index < blockchain.blocks.length; index++) {
-    const value = [<tr><td>{blockchain.blocks[index].hash}</td>
-                  <td>{blockchain.blocks[index].hash}</td>
-                  <td>{blockchain.blocks[index].previoushash}</td>
-                  <td>{blockchain.blocks[index].data}</td>
-                  <td>{blockchain.blocks[index].timestamp}</td>
-                  <td>{blockchain.blocks[index].difficulty}</td></tr>]
-    arrayHTML.push(value); 
-    
-  }
-  return arrayHTML;
+//PER FER EL LOGIN
+/*class App extends Component(){
+  constructor() {
+    super();
+    this.state = {
+      name: "React",
+      isUserAuthenticated: true
+    };
   }
 
-  function syncBlockchain(){
-    alert('btn');
-    p2pService.sync();
-    tableRow();
-  }
+}
+*/
 
 
-    function handleClick(e) {
-      e.preventDefault();
-      console.log('The link was clicked.');
-      syncBlockchain();
-    
-  }
+
+
 
 function App() {
   let block = new Block(12342132, undefined, 'g3n3s1s-h4sh', 'i like ramen.', 0, 3);
@@ -73,40 +59,43 @@ function App() {
       
       <header className="App-header">
       <Router>
-      <Navbar />
-      
-    </Router>
-    {MyComponent()}
-        <div className="div1" alt="logo">
-      
-          
-        <table>
-          
-          
-          <th>ID</th>
-          <th>HASH</th>  
-          <th>PREVIOUS HASH</th>
-          <th>DATA</th>
-          <th>DATE</th>
-          <th>DIFF</th>
-          {tableRow()}
-          <BlocksTable/>
-          <tr>
-            <td>1</td>
-            <td>{block.hash}</td>
-            <td>{block.previousHash}</td>
-            <td>{block.data}</td>
-            <td>{block.timestamp}</td>
-            <td>{block.difficulty}</td>
+      <Switch>
+        
+      <Route
+                exact
+                path="/"
+                render={() => {
+                    return (
+                      //this.state.isUserAuthenticated ?
+                      <Redirect to="/home" /> 
+                      
+                    )
+                }}
+              />
+  <Route exact path="/mine">
+  <Navbar />
+    <Mine />
+  </Route>
+  <Route exact path="/signup">
+    
+    <SingUp />
+  </Route>
+  <Route exact path="/singin">
+    <SingIn />
+  </Route>
+  <Route exact path="/home">
+  <Navbar />
+    <Home />
+  </Route>
 
-          </tr>
-        </table>
-      
-        
-        </div>
+</Switch>
+</Router>
+
        </header>
-        
+
+
     </div>
+    
   );
 }
 
