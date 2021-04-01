@@ -4,12 +4,13 @@
 //curl http://localhost:3000/blocks
 
 import express from 'express';
-
+import Cors from 'cors';
 
 import Blockchain from '../blockchain/blockchain.js';
 import P2PService, {MESSAGE} from './p2p.js';
 import Wallet from '../wallet/wallet.js';
 import Miner from '../miner/miner.js'
+
 
 //HTTP_PORT => Variable d'entorn
 //Posem port al HTTP (3000 per defecte)
@@ -29,7 +30,13 @@ const miner = new Miner(blockchain,p2pService, walletMiner);
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
- 
+app.use((req, res, next) => {
+    res.setHeader("Access-Control-Allow-Origin", "*"),
+      res.setHeader("Access-Control-Allow-Headers", "*"),
+      next();
+  });
+
+app.use(Cors())
 
 
 

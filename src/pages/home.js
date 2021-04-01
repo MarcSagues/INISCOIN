@@ -5,8 +5,9 @@ import Blockchain from '../blockchain/src/blockchain/blockchain';
 import P2PService from '../blockchain/src/service/p2p';
 import BlocksTable from '../containers/BlocksTable';
 
-import React, { Component } from 'react'
+import React, { Component, useEffect, useState } from 'react'
 import Select from 'react-select'
+import axios from 'axios';
 
 
 
@@ -65,10 +66,20 @@ function tableRow() {
   }
 
 function Home() {
-  let block = new Block(12342132, undefined, 'g3n3s1s-h4sh', 'i like ramen.', 0, 3);
-  console.log(blockchain.blocks[0].data);
-
+  //let block = new Block(12342132, undefined, 'g3n3s1s-h4sh', 'i like ramen.', 0, 3);
+  //console.log(blockchain.blocks[0].data);
+  const[blocks,setBlocks] = useState([]);
   p2pService.sync();
+
+  useEffect(() => {
+
+    axios.get('http://localhost:3000/blocks').then((result) => {
+      console.table(result.data);
+      setBlocks(result.data);
+      
+    })
+
+  }, []);
   return (
     <div className="Home">
       
@@ -92,15 +103,23 @@ function Home() {
           <th>DIFF</th>
           {tableRow()}
           <BlocksTable/>
+
+            {blocks?.map(block => 
           <tr>
-            <td>1</td>
+
+               <td>1</td>
             <td>{block.hash}</td>
             <td>{block.previousHash}</td>
             <td>{block.data}</td>
             <td>{block.timestamp}</td>
             <td>{block.difficulty}</td>
-
           </tr>
+            
+              )} 
+            
+           
+            
+
         </table>
       
         
