@@ -16,15 +16,15 @@ class Mine extends Component{
       
       <header className="App-header">
      
-        <div className="div1" alt="logo">
+        <div className="div1" alt="logo"></div>
       
           
-       <div className="mineDiv" >
-    HOLA
-       </div>
+        <div className="mineDiv" >
+          <button id="btn_mine">HOLa</button>
+        </div>
       
         
-        </div>
+        
        </header>
         
     </div>

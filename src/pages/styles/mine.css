@@ -2,5 +2,13 @@
 
 .mineDiv {
     position: relative;
-    background-color: aqua;
+    border-style: solid;
+    border-width: 1.5px;
+    width: 60vmin;
+    height: 90%;
+}
+
+#btn_mine {
+    width: 400px;
+    z-index: 10;
 }

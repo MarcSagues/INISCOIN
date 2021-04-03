@@ -80,42 +80,40 @@ function Home() {
     })
 
   }, []);
+
+   var idBlocks = 0; 
+
   return (
     <div className="Home">
       
       <header className="App-header">
       
-
- 
-
-    {MyComponent()}
         <div className="div1" alt="logo">
-      
+        <h1 id="header_table"> White Papaer </h1>
           
         <table>
           
           
-          <th>ID</th>
           <th>HASH</th>  
           <th>PREVIOUS HASH</th>
           <th>DATA</th>
           <th>DATE</th>
           <th>DIFF</th>
-          {tableRow()}
-          <BlocksTable/>
+          
 
             {blocks?.map(block => 
+            
           <tr>
 
-               <td>1</td>
-            <td>{block.hash}</td>
-            <td>{block.previousHash}</td>
+            <td>{block.hash.substring(0, 15) + '...'}</td>
+            <td>{block.previousHash.substring(0, 15) + '...'}</td>
             <td>{block.data}</td>
-            <td>{block.timestamp}</td>
+            <td>{
+            block.timestamp}</td>
             <td>{block.difficulty}</td>
           </tr>
             
-              )} 
+               )} 
             
            
             

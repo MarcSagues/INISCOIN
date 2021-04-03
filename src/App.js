@@ -11,8 +11,8 @@ import Select from 'react-select'
 import MainPage from './components/MainPage';
 import Mine from './pages/mine'
 import Home from './pages/home'
-import SingIn from './pages/singin'
-import SingUp from './pages/singup'
+import SignIn from './pages/signin'
+import SignUp from './pages/signup'
 import './pages/styles/mine.css'
 
 
@@ -50,8 +50,7 @@ const options = [
 
 
 function App() {
-  let block = new Block(12342132, undefined, 'g3n3s1s-h4sh', 'i like ramen.', 0, 3);
-  console.log(blockchain.blocks[0].data);
+  
 
   p2pService.sync();
   return (
@@ -77,11 +76,10 @@ function App() {
     <Mine />
   </Route>
   <Route exact path="/signup">
-    
-    <SingUp />
+    <SignUp />
   </Route>
-  <Route exact path="/singin">
-    <SingIn />
+  <Route exact path="/signin">
+    <SignIn />
   </Route>
   <Route exact path="/home">
   <Navbar />

@@ -3,7 +3,7 @@ import adjustDifficulty from './modules/adjustDifficulty.js';
 import generatorHash from '../modules/hash.js';;
 
 const DIFFICULTY = 3;
-var id = 0;
+
 
 class Block {
   constructor(timestamp, previousHash, hash, data, nonce, difficulty) {
@@ -13,13 +13,13 @@ class Block {
     this.data = data;
     this.nonce = nonce;
     this.difficulty = difficulty;
-    id += 1;
+   
   }
 
   //creem el bloque genesis (inicial)
   static get genesis() {
     const timestamp = (new Date(2000, 0, 1)).getTime();
-    return new this(timestamp, undefined, 'g3n3s1s-h4sh', 'i like ramen.', 0, DIFFICULTY);
+    return new this(timestamp, 'no-previous-hash', 'genesis-block-hash', 'i like ramen.', 0, DIFFICULTY);
   }
 
   static mine(previousBlock, data) {
