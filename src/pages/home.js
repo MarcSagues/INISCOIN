@@ -69,6 +69,8 @@ function Home() {
   //let block = new Block(12342132, undefined, 'g3n3s1s-h4sh', 'i like ramen.', 0, 3);
   //console.log(blockchain.blocks[0].data);
   const[blocks,setBlocks] = useState([]);
+  const[transactions,setTransactions] = useState([]);
+
   p2pService.sync();
 
   useEffect(() => {
@@ -79,10 +81,15 @@ function Home() {
       
     })
 
+    axios.get('http://localhost:3000/transactions').then((result) => {
+      console.table(result.data);
+      setTransactions(result.data);
+      
+    })
+
   }, []);
 
    var idBlocks = 0; 
-
   return (
     <div className="Home">
       
@@ -111,6 +118,36 @@ function Home() {
             <td>{
             block.timestamp}</td>
             <td>{block.difficulty}</td>
+          </tr>
+            
+               )} 
+            
+           
+            
+
+        </table>
+      
+        <h1 id="header_table"> White Papaer </h1>
+          
+        <table>
+          
+          
+          <th>HASH</th>  
+          <th>PREVIOUS HASH</th>
+          <th>DATA</th>
+          <th>DATE</th>
+          <th>DIFF</th>
+          
+
+            {transactions?.map(transaction => 
+            
+          <tr>
+
+     
+            <td>{transaction.outputs.amount}</td>
+            <td>{
+            transaction.outputs.address}</td>
+            <td>{transaction.input.timestamp}</td>
           </tr>
             
                )} 

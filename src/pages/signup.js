@@ -33,6 +33,15 @@ const useStyles = makeStyles((theme) => ({
     flexDirection: 'column',
     alignItems: 'center',
   },
+  back: {
+    position: 'absolute',
+    left: '3%',
+    top: '7%',
+    width: '10%',
+    fontSize: '1.5em',
+    fontWeight: 'bold',
+    color: 'grey',
+  },
   avatar: {
     margin: theme.spacing(1),
     backgroundColor: theme.palette.secondary.main,
@@ -52,10 +61,16 @@ export default function SignUp() {
   return (
     <Container component="main" maxWidth="xs">
       <CssBaseline />
+      <div class="box-1">
+        <div class="btn btn-one">
+          <span>HOVER ME</span>
+        </div>
+      </div>
       <div className={classes.paper}>
         <Avatar className={classes.avatar}>
           <LockOutlinedIcon />
         </Avatar>
+        <Button href="/home" className={classes.back} variant="outline-primary">X</Button>{' '}
         <Typography component="h1" variant="h5">
           Sign up
         </Typography>
