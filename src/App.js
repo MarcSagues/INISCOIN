@@ -13,6 +13,8 @@ import Mine from './pages/mine'
 import Home from './pages/home'
 import SignIn from './pages/signin'
 import SignUp from './pages/signup'
+import Profile from './pages/profile'
+
 import './pages/styles/mine.css'
 
 
@@ -84,6 +86,10 @@ function App() {
   <Route exact path="/home">
   <Navbar />
     <Home />
+  </Route>
+  <Route exact path="/profile">
+  <Navbar />
+    <Profile />
   </Route>
 
 </Switch>

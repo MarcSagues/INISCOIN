@@ -10,6 +10,24 @@ import {
 } from './NavbarElements';
 
 
+function checkLogIn(){
+  var isLogged = true;
+  if(isLogged === false){
+
+    return (
+      <NavLink to='/signup' activeStyle>
+            Sign Up
+          </NavLink>
+    )
+  }else{
+    return (
+      <NavLink to='/profile' activeStyle>
+            Profile
+          </NavLink>
+    )
+  }
+}
+
 const Navbar = () => {
   return (
     <>
@@ -29,10 +47,8 @@ const Navbar = () => {
           <NavLink to='/mine' activeStyle>
             Contact Us
           </NavLink>
-          <NavLink to='/signup' activeStyle>
-            Sign Up
-          </NavLink>
-         
+          
+         {checkLogIn()}
 
           {/* Second Nav */}
           {/* <NavBtnLink to='/sign-in'>Sign In</NavBtnLink> */}

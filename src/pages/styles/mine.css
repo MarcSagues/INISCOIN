@@ -2,17 +2,18 @@
 
 .mineDiv {
     position: absolute;
-    top: 20%;
+    top: 15%;
     border-style: solid;
-    border-color: black;
-    border-width: 1.5px;
-    width: 100vmin;
-    height: 70vmin;
+    border-color: #3578e3;
+    border-width: 2px;
+    width: 80vmin;
+    height: 80vmin;
+    box-shadow: 5px 5px 5px #3578e3;
 }
 
 #btn_mine {
     position: relative;
-    top: 80%;
+    top: 2em;
     width: 30vmin;
     height: 10vmin;
     font-size: 0.8em;
@@ -21,4 +22,12 @@
     background-color: #3578e3;
     color: white;
     border: none;
+    box-shadow: 5px 5px 5px grey;
+
+}
+
+header {
+    color: black;
+    padding: 4px;
+
 }

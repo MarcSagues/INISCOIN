@@ -15,3 +15,4 @@ export const divStyle = styled.nav`
   /* Third Nav */
   /* justify-content: flex-start; */
 `;
+

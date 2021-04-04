@@ -26,6 +26,7 @@ export const NavLink = styled(Link)`
   font-weight: bold;
   height: 100%;
   cursor: pointer;
+  z-index: 100;
   &.active {
     color: #fff;
   }
@@ -43,7 +44,8 @@ export const Bars = styled(FaBars)`
     transform: translate(-100%, 75%);
     font-size: 1.8rem;
     cursor: pointer;
-    
+  z-index: 100;
+  
   }
 `;
 
@@ -85,6 +87,7 @@ export const NavBtnLink = styled(Link)`
   text-decoration: none;
   font-size: 2.6vmin;
   font-weight: bold;
+  z-index: 100;
   /* Second Nav */
   margin-left: 24px;
   &:hover {
