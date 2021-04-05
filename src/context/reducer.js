@@ -2,7 +2,7 @@ export const initialState = {
   user: null,
   wallet: null,
   dateNowClick: 0,
-  email: 'marc@sagues.cat',
+  email: null,
   password: null,
   
 };
@@ -10,6 +10,8 @@ export const initialState = {
 export const actionTypes = {
   SET_USER: "SET_USER",
   SET_EMAIL: "SET_EMAIL",
+  SET_PASSWORD: "SET_PASSWORD",
+
   
 };
 
@@ -26,6 +28,12 @@ const reducer = (state, action) => {
       return {
         ...state, //AGAFA TOT EL STATE
         user: action.user,
+      };
+      case actionTypes.SET_PASSWORD:
+      console.log('action types: '+action.password);
+      return {
+        ...state, //AGAFA TOT EL STATE
+        password: action.password,
       };
 
     default:

@@ -67,62 +67,96 @@ export default function ResultConfirm() {
   const [username, setUsername] = useState('');
 
 
+  function CorrectCode() {
+    var codeOk = false
+  
+    //El codi es correcte
+  
+    if (codeOk === true){
+      return(
+      <Container component="main" maxWidth="xs">
+        <CssBaseline />
+        <div className={classes.paper}>
+          <Avatar className={classes.avatar}>
+            <LockOutlinedIcon />
+          </Avatar>
+          <Button href="/home" className={classes.back} variant="outline-primary">X</Button>{' '}
+          <h1>Verified!</h1>
+          <Typography component="h1" variant="h5">
+            Congratulations! You have succesfully verified the account.
+          </Typography>
+          
+          <form className={classes.form} noValidate>
+  
+            <Button
+              type="submit"
+              fullWidth
+              variant="contained"
+              color="primary"
+              className={classes.submit}
+              onClick={(e) => GoDashboard(e) }
+            >
+              Go to Dashboard
+            </Button>         
+          </form>
+        </div>
+        <Box mt={8}>
+          <Copyright />
+        </Box>
+      
+      </Container>
+    );
+    }
+    //El codi es incorrecte
+  
+    if (codeOk === false){
+      return(
+      <Container component="main" maxWidth="xs">
+        <CssBaseline />
+        <div className={classes.paper}>
+          <Avatar className={classes.avatar}>
+            <LockOutlinedIcon />
+          </Avatar>
+          <Button href="/home" className={classes.back} variant="outline-primary">X</Button>{' '}
+          <h1>Error!</h1>
+          <Typography component="h1" variant="h5">
+            We are sorry! The code you introduced is not correct. Please try again.
+          </Typography>
+          
+          <form className={classes.form} noValidate>
+  
+            <Button
+              type="submit"
+              fullWidth
+              variant="contained"
+              color="primary"
+              className={classes.submit}
+              onClick={(e) => TryAgain(e) }
+            >
+              Try Again
+            </Button>         
+          </form>
+        </div>
+        <Box mt={8}>
+          <Copyright />
+        </Box>
+      
+      </Container>
+    );
+    }
+  }
+  const TryAgain = (e) => {
 
-  const CheckCode = (e) => {
-
-    history.push('/result_confirm');
+    history.push('/confirm_email');
 
   }; 
-  return (
-    <Container component="main" maxWidth="xs">
-      <CssBaseline />
-      <div className={classes.paper}>
-        <Avatar className={classes.avatar}>
-          <LockOutlinedIcon />
-        </Avatar>
-        <Button href="/home" className={classes.back} variant="outline-primary">X</Button>{' '}
-        <h1>Verify your email</h1>
-        <Typography component="h1" variant="h5">
-          Please enter the 6 digits code sent to your email
-        </Typography>
-        
-        <form className={classes.form} noValidate>
-          <TextField
-            variant="outlined"
-            margin="normal"
-            required
-            fullWidth
-            name="user"
-            label="CODE"
-            type="number"
-            id="user"
-            autoComplete="current-password"
-            
-          />
-          <Button
-            type="submit"
-            fullWidth
-            variant="contained"
-            color="primary"
-            className={classes.submit}
-            onClick={(e) => CheckCode(e) }
-          >
-            CHECK
-          </Button>
-          <Grid container>
-            <Grid item xs>
-              <Link href="#" variant="body2">
-                Resend Code
-              </Link>
-            </Grid>
-          </Grid>
-          
-        </form>
-      </div>
-      <Box mt={8}>
-        <Copyright />
-      </Box>
-    
-    </Container>
-  );
+
+  const GoDashboard = (e) => {
+
+    history.push('/home');
+
+  }; 
+  return ( CorrectCode() )
+
+
 }

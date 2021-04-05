@@ -11,10 +11,10 @@ import {
 import {useStateValue} from '../../context/StateProvider';
 
 
-function checkLogIn(user){
+function checkLogIn(email){
 
   
-  if(user === null){
+  if(email === null){
 
     return (
       <NavLink to='/signup' activeStyle>
@@ -30,9 +30,32 @@ function checkLogIn(user){
   }
 }
 
-const Navbar = () => {
-  const [{user}, dispacth /*fa accions*/] = useStateValue(); //agafem valor del reducer
+function checkLogInBtn(email){
+
   
+  if(email === null){
+
+    return (
+      <NavBtnLink to='/signin'>
+
+      Sign In
+
+      </NavBtnLink>
+    )
+  }else{
+    return (
+      <NavBtnLink to='/signin'>
+
+      I'm logged
+
+      </NavBtnLink>
+    )
+  }
+}
+
+const Navbar = () => {
+  const [{email}, dispacth /*fa accions*/] = useStateValue(); //agafem valor del reducer
+  console.log('user del reducer: '+email)
 
   return (
     <>
@@ -53,17 +76,13 @@ const Navbar = () => {
             Contact Us
           </NavLink>
           
-         {checkLogIn(user)}
+         {checkLogIn(email)}
 
           {/* Second Nav */}
           {/* <NavBtnLink to='/sign-in'>Sign In</NavBtnLink> */}
         </NavMenu>
         <NavBtn>
-          <NavBtnLink to='/signin'>
-
-            Sign In
-
-            </NavBtnLink>
+          {checkLogInBtn(email)}
         </NavBtn>
         
       </Nav>

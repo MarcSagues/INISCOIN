@@ -80,11 +80,9 @@ function Home() {
   p2pService.sync();
 
   useEffect(() => {
-    console.log('First email: '+email);
-    dispacth({
-      type: actionTypes.SET_EMAIL,
-      email: 'holasoc'
-    });
+    console.log('Email logged: '+email);
+
+    
 
     axios.get('http://localhost:3000/blocks').then((result) => {
       console.table(result.data);

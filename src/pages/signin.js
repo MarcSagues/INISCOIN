@@ -68,6 +68,7 @@ export default function SignIn() {
   const [password, setPassword] = useState('');
   const history = useHistory();
   const [users, setUsers] = useState([]);
+  const [username, setUsername] = useState('');
 
 
   useEffect(() => {
@@ -86,11 +87,23 @@ export default function SignIn() {
   const CheckSignIn = (e) => {
     e.preventDefault();
     console.log(email);
-    dispacth({
-      type: actionTypes.SET_USER,
-      user: 'user11',
-    })
+    for(let i = 0; i < users.length; i++){
+      if(email === users[i].email){
+        if(password === users[i].password){
+          setUsername(users[i].username);
+          dispacth({
+            type: actionTypes.SET_EMAIL,
+            email: email,
+            password: password,
+            user: username,
+          })
     history.push('/home');
+
+        }
+      }
+
+    }
+    
 
   }; 
   return (
