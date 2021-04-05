@@ -1,4 +1,6 @@
-
+#mine{
+    top: 0;
+}
 
 .mineDiv {
     position: absolute;
@@ -11,23 +13,46 @@
     box-shadow: 5px 5px 5px #3578e3;
 }
 
-#btn_mine {
-    position: relative;
-    top: 2em;
-    width: 30vmin;
-    height: 10vmin;
-    font-size: 0.8em;
-    
-    z-index: 10;
-    background-color: #3578e3;
-    color: white;
-    border: none;
-    box-shadow: 5px 5px 5px grey;
 
+#btn_mine{
+    position: absolute;
+    width: 50%;
+    top: 70%;
+    left: 22%;
+    border-radius: 4px;
+    background: #3578e3;
+    padding: 10px 22px;
+    color: #fff;
+    outline: none;
+    border: none;
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+    text-decoration: none;
+    font-size: 3.6vmin;
+    font-weight: bold;
+    z-index: 100;
+    /* Second Nav */
+    margin-left: 24px;
+}
+#btn_mine:hover {
+    transition: all 0.2s ease-in-out;
+    background: grey;
+    color: white;
 }
 
+#mine{
+    background-color: black;
+    
+}
 header {
     color: black;
     padding: 4px;
-
 }
+/*
+#header1{
+}
+#header2{  
+}
+#header3{
+}
+*/

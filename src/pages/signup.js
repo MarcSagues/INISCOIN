@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import './styles/errors.css'
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -16,7 +17,12 @@ import { useStateValue } from '../context/StateProvider';
 import { useHistory } from 'react-router';
 import { actionTypes } from '../context/reducer';
 import { db } from '../context/axios';
+import emailjs from 'emailjs-com';
+import jQuery from 'jquery';
+import{ init } from 'emailjs-com';
+init("user_gyduzqABXjCbxIEE3cTiY");
 
+var randomNumber = 0; 
 function Copyright() {
   return (
     <Typography variant="body2" color="textSecondary" align="center">
@@ -71,10 +77,32 @@ export default function SignUp() {
     const[users,setUsers] = useState([]);
     const history = useHistory();
   
-    function checkUserAndEmail(){
-      
-     
-    };
+    
+    function showErrorUsername(){
+      jQuery('#usernameError').addClass('errorVisible');
+    }
+    function showErrorEmail(){
+      jQuery('#emailError').html('Email is already used.');
+      jQuery('#emailError').addClass('errorVisible');
+    }
+    function showErrorEmailFormat(){
+      jQuery('#emailError').addClass('errorVisible');
+      jQuery('#emailError').html('Email with bad format.');
+    }
+    function showErrorPassword(){
+      jQuery('#passwordError').addClass('errorVisible');
+    }
+
+
+    function dontShowErrorUsername(){
+      jQuery('#usernameError').removeClass('errorVisible');
+    }
+    function dontShowErrorEmail(){
+      jQuery('#emailError').removeClass('errorVisible');
+    }
+    function dontShowErrorEmailFormat(){
+      jQuery('#emailError').removeClass('errorVisible');
+    }
 
     useEffect(() => {
 
@@ -88,51 +116,89 @@ export default function SignUp() {
       
     });
   }); 
-
+  function validateEmail(email) {
+    const re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    return re.test(String(email).toLowerCase());
+}
     const AddUser = (e) => {
+     
       e.preventDefault();
 
-      
+     if(validateEmail(email) && password.length > 6){
+      dontShowErrorEmailFormat();
       console.log('response2 = '+users);
       var response = 0;
+      var mostrarUsername = 0;
+      var mostrarEmail = 0;
+
     for (var i = 0; i < users.length; i++){
 
           if (users[i].username === username){
             response = 1;
+            showErrorUsername();
+           mostrarUsername = 1;
 
           } 
           if (users[i].email === email){
             response = 2;
-
+            showErrorEmail();
+            mostrarEmail = 1;
           } 
           
 
         }
+        if (mostrarUsername == 0){
+          dontShowErrorUsername();
+        } 
+        if (mostrarEmail == 0){
+          dontShowErrorEmail();
+        }
         
       console.log('response return = '+response);
       if (response == 0){
-        const user = {
-          username: username,
-          password: password,
-          email: email
-        }
-        db.post('/addUser', user)
-          .then(res => {
-            console.log(res);
-            console.log(res.data);
-          });
-        console.log(email);
+        randomNumber = Math.floor(100000 + Math.random() * 900000);
+        emailjs.send("confirm_email","template_y6kfnr8",{
+          to_name: username,
+          number: randomNumber,
+          to_email: email,
+          }).then(function(response) {
+            if(response.text === 'OK'){
+                alert('El correo se ha enviado de forma exitosa');
+            }
+           console.log("SUCCESS. status=%d, text=%s", response.status, response.text);
+        }, function(err) {
+            alert('Ocurrió un problema al enviar el correo', + err);
+           console.log("FAILED. error=", err);
+        });
+        dispacth({
+          type: actionTypes.SET_EMAIL,
+          email: email,
+          
+        });
         dispacth({
           type: actionTypes.SET_USER,
-          username: username,
-          email: email,
+          user: username,
+          
+        });
+        dispacth({
+          type: actionTypes.SET_PASSWORD,
           password: password,
-  
-        })
+          
+        });
+
         history.push('/confirm_email');
       } else {
         console.log('error');
       }
+    } else {
+      if(password.length > 6){
+      showErrorEmailFormat();
+
+      }
+      showErrorPassword();
+
+
+    }
 
       
       
@@ -150,6 +216,7 @@ export default function SignUp() {
         <Typography component="h1" variant="h5">
           Sign up
         </Typography>
+        <header className='errors' id='usernameError'>Username is already used.</header>
         <form className={classes.form} noValidate>
           <TextField
             variant="outlined"
@@ -163,6 +230,7 @@ export default function SignUp() {
             autoComplete="current-password"
             onChange={(e) => setUsername(e.target.value)} //settejar el valor del email i guardar-ho dins la variable email
           />
+        <header className='errors' id='emailError'>Email is already used.</header>
           <TextField
             variant="outlined"
             margin="normal"
@@ -175,6 +243,8 @@ export default function SignUp() {
             autoFocus
             onChange={(e) => setEmail(e.target.value)} //settejar el valor del email i guardar-ho dins la variable email
           />
+            <header className='errors' id='passwordError'>Password must have 7 letters or more</header>
+
           <TextField
             variant="outlined"
             margin="normal"
@@ -217,3 +287,5 @@ export default function SignUp() {
     </Container>
   );
 }
+
+export {randomNumber};

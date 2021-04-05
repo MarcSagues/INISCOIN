@@ -16,6 +16,8 @@ import { useStateValue } from '../context/StateProvider';
 import { actionTypes } from '../context/reducer';
 import { useHistory } from 'react-router';
 import { db } from '../context/axios';
+import './styles/errors.css'
+import jQuery from 'jquery'
 
 
 function Copyright() {
@@ -84,27 +86,57 @@ export default function SignIn() {
     });
   }); 
   
+  function showError(){
+    return (
+    <header className='errors' id='loginError'> Incorrect email or password. </header>
+    )
+  } 
+  function errorVisible(){
+    jQuery('#loginError').addClass('errorVisible');
+  }
+  function validateEmail(email) {
+    const re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    return re.test(String(email).toLowerCase());
+}
   const CheckSignIn = (e) => {
+
     e.preventDefault();
+    if (validateEmail(email))
     console.log(email);
+    var log = false;
     for(let i = 0; i < users.length; i++){
       if(email === users[i].email){
+        
         if(password === users[i].password){
+          log = true
           setUsername(users[i].username);
           dispacth({
             type: actionTypes.SET_EMAIL,
             email: email,
+            
+          })
+          dispacth({
+            type: actionTypes.SET_USER,
+            user: user,
+            
+          })
+          dispacth({
+            type: actionTypes.SET_PASSWORD,
             password: password,
-            user: username,
+            
           })
     history.push('/home');
+        };
+         
 
         }
-      }
+        if (log !== true){
+          errorVisible();
+      } 
 
     }
     
-
+    
   }; 
   return (
     <Container component="main" maxWidth="xs">
@@ -117,8 +149,10 @@ export default function SignIn() {
         <Typography component="h1" variant="h5">
           Sign in
         </Typography>
+        {showError()}
         <form className={classes.form} noValidate>
           <TextField
+          type="email"
             variant="outlined"
             margin="normal"
             required
@@ -142,10 +176,6 @@ export default function SignIn() {
             autoComplete="current-password"
             onChange={(e) => setPassword(e.target.value)} //settejar el valor del email i guardar-ho dins la variable email
 
-          />
-          <FormControlLabel
-            control={<Checkbox value="remember" color="primary" />}
-            label="Remember me"
           />
           <Button
             type="submit"

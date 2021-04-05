@@ -16,6 +16,7 @@ export const Nav = styled.nav`
   /* justify-content: flex-start; */
 `;
 
+
 export const NavLink = styled(Link)`
   color: #fff;
   display: flex;

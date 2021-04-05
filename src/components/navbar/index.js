@@ -9,6 +9,8 @@ import {
   NavBtnLink
 } from './NavbarElements';
 import {useStateValue} from '../../context/StateProvider';
+import Logo from './img/userIcon2.jpeg';
+import './navbar.css'
 
 
 function checkLogIn(email){
@@ -44,11 +46,8 @@ function checkLogInBtn(email){
     )
   }else{
     return (
-      <NavBtnLink to='/signin'>
+      <h1> <a id="inis_amount">0 INIS</a></h1>
 
-      I'm logged
-
-      </NavBtnLink>
     )
   }
 }

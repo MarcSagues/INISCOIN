@@ -16,7 +16,15 @@ import { useStateValue } from '../context/StateProvider';
 import { actionTypes } from '../context/reducer';
 import { useHistory } from 'react-router';
 
+import { db } from '../context/axios';
+import {randomNumber} from './signup';
+import emailjs from 'emailjs-com';
 
+import{ init } from 'emailjs-com';
+init("user_gyduzqABXjCbxIEE3cTiY");
+
+var isRegistered = true;
+var randomNumberResend = 0;
 function Copyright() {
   return (
     <Typography variant="body2" color="textSecondary" align="center">
@@ -62,17 +70,60 @@ const useStyles = makeStyles((theme) => ({
 
 export default function ConfirmEmail() {
   const classes = useStyles();
+  const [{user, email, password}, dispacth] = useStateValue();
+  var [inputNumber, setInputNumber] = useState(0);
+  
 
+  
   const history = useHistory();
-  const [username, setUsername] = useState('');
-
-
+ 
+  const resendEmail = (e) => {
+        console.log(randomNumber)
+        emailjs.send("confirm_email","template_y6kfnr8",{
+          to_name: user+'.',
+          number: randomNumber,
+          to_email: email,
+          }).then(function(response) {
+            if(response.text === 'OK'){
+                alert('El correo se ha enviado de forma exitosa');
+            }
+           console.log("SUCCESS. status=%d, text=%s", response.status, response.text);
+        }, function(err) {
+            alert('Ocurrió un problema al enviar el correo', + err);
+           console.log("FAILED. error=", err);
+        });
+  }
 
   const CheckCode = (e) => {
+    e.preventDefault();
+    console.log('inputnumber: '+inputNumber)
+    console.log('randomnumber: '+randomNumber)
 
+    if(randomNumber == inputNumber){
+      isRegistered = true;
+    const userActive = {
+      username: user,
+      password: password,
+      email: email
+    };
+    db.post('/addUser', userActive)
+      .then(res => {
+        console.log(res);
+        console.log(res.data);
+      });
+    console.log(email);
+   
     history.push('/result_confirm');
 
-  }; 
+    }else {
+      isRegistered = false;
+
+      console.log('erorr');
+    history.push('/result_confirm');
+
+    }
+
+}
   return (
     <Container component="main" maxWidth="xs">
       <CssBaseline />
@@ -97,7 +148,7 @@ export default function ConfirmEmail() {
             type="number"
             id="user"
             autoComplete="current-password"
-            
+            onChange={(e) => setInputNumber(e.target.value)} 
           />
           <Button
             type="submit"
@@ -111,9 +162,9 @@ export default function ConfirmEmail() {
           </Button>
           <Grid container>
             <Grid item xs>
-              <Link href="#" variant="body2">
+              <Button onClick={resendEmail} variant="body2">
                 Resend Code
-              </Link>
+              </Button>
             </Grid>
           </Grid>
           
@@ -126,3 +177,5 @@ export default function ConfirmEmail() {
     </Container>
   );
 }
+
+export {isRegistered};

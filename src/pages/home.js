@@ -152,7 +152,8 @@ function Home() {
             
 
         </table>
-      
+            
+        {/* 
         <h1 id="header_table"> White Papaer </h1>
           
         <table>
@@ -183,7 +184,7 @@ function Home() {
 
         </table>
       
-        
+        */}
         </div>
        </header>
 

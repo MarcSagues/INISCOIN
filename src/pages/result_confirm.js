@@ -15,6 +15,7 @@ import Container from '@material-ui/core/Container';
 import { useStateValue } from '../context/StateProvider';
 import { actionTypes } from '../context/reducer';
 import { useHistory } from 'react-router';
+import {isRegistered} from './confirm_email';
 
 
 function Copyright() {
@@ -68,11 +69,11 @@ export default function ResultConfirm() {
 
 
   function CorrectCode() {
-    var codeOk = false
+    
   
     //El codi es correcte
   
-    if (codeOk === true){
+    if (isRegistered === true){
       return(
       <Container component="main" maxWidth="xs">
         <CssBaseline />
@@ -109,7 +110,7 @@ export default function ResultConfirm() {
     }
     //El codi es incorrecte
   
-    if (codeOk === false){
+    if (isRegistered === false){
       return(
       <Container component="main" maxWidth="xs">
         <CssBaseline />

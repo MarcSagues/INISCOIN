@@ -49,22 +49,18 @@ class Mine extends Component{
                   
                   <header className="App-header">
 
-                  
-                 
                     <div className="mineDiv" >
                       <br></br>
                       <br></br>
-                      <header>EARN YOUR INIS</header>
+                      <header id="header1">EARN YOUR INIS</header>
                       <br></br>
                       <br></br>
-                      <header>Every 24 hours you can claim your rewards.</header>
+                      <header id="header2">Every 24 hours you can claim your rewards.</header>
                         <br></br>
-                      <header>Actually you are mining 1 INIS/day</header>
-                      <button id="btn_mine" onClick={this.mine24h}>CLAIM</button>
+                      <header id="header3">The standard mining rate is 1 INIS/day</header>
+                      <button id="btn_mine" onClick={this.mine24h}>MINE</button>
                     </div>
-                  
-                    
-                    
+      
                    </header>
                     
                 </div>
