@@ -8,11 +8,13 @@ import {
   NavBtn,
   NavBtnLink
 } from './NavbarElements';
+import {useStateValue} from '../../context/StateProvider';
 
 
-function checkLogIn(){
-  var isLogged = true;
-  if(isLogged === false){
+function checkLogIn(user){
+
+  
+  if(user === null){
 
     return (
       <NavLink to='/signup' activeStyle>
@@ -29,6 +31,9 @@ function checkLogIn(){
 }
 
 const Navbar = () => {
+  const [{user}, dispacth /*fa accions*/] = useStateValue(); //agafem valor del reducer
+  
+
   return (
     <>
       <Nav>
@@ -48,7 +53,7 @@ const Navbar = () => {
             Contact Us
           </NavLink>
           
-         {checkLogIn()}
+         {checkLogIn(user)}
 
           {/* Second Nav */}
           {/* <NavBtnLink to='/sign-in'>Sign In</NavBtnLink> */}

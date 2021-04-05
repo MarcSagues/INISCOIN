@@ -6,3 +6,8 @@ yarn add express
 yarn add body-parser --> middleware 'serializar' todas las peticiones y obtener la propiedad body y dejandola un poquito más decente
 
 yarn add uuid ---> universal unique id
+
+
+PASSWORD MONGODB
+admin
+ZHmCCPWOb6aagC8o

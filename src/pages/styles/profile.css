@@ -1,0 +1,7 @@
+.div_profile {
+    position: absolute;
+    height: 100%;
+    background-image: url("../img/4842260b248b352d6d344edfa5f631d7.jpeg");
+    filter: grayscale(50%);
+    left: 0;
+}

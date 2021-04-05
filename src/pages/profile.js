@@ -1,9 +1,10 @@
 import logo from '../logo.svg';
-import '../App.css';
+import './styles/profile.css';
 import Block from '../blockchain/src/blockchain/block';
 import Blockchain from '../blockchain/src/blockchain/blockchain';
 import P2PService from '../blockchain/src/service/p2p';
 import BlocksTable from '../containers/BlocksTable';
+
 
 import React, { Component, useEffect, useState } from 'react'
 import Select from 'react-select'
@@ -91,72 +92,15 @@ function Profile() {
 
    var idBlocks = 0; 
   return (
-    <div className="Home">
+    <div className="Profile">
       
       <header className="App-header">
       
-        <div className="div1" alt="logo">
-        <h1 id="header_table"> White Papaer </h1>
+        <div className="div_profile" alt="logo">
           
-        <table>
-          
-          
-          <th>HASH</th>  
-          <th>PREVIOUS HASH</th>
-          <th>DATA</th>
-          <th>DATE</th>
-          <th>DIFF</th>
-          
-
-            {blocks?.map(block => 
-            
-          <tr>
-
-            <td>{block.hash.substring(0, 15) + '...'}</td>
-            <td>{block.previousHash.substring(0, 15) + '...'}</td>
-            <td>{block.data}</td>
-            <td>{
-            block.timestamp}</td>
-            <td>{block.difficulty}</td>
-          </tr>
-            
-               )} 
-            
-           
-            
-
-        </table>
-      
-        <h1 id="header_table"> White Papaer </h1>
-          
-        <table>
-          
-          
-          <th>HASH</th>  
-          <th>PREVIOUS HASH</th>
-          <th>DATA</th>
-          <th>DATE</th>
-          <th>DIFF</th>
-          
-
-            {transactions?.map(transaction => 
-            
-          <tr>
-
-     
-            <td>{transaction.outputs.amount}</td>
-            <td>{
-            transaction.outputs.address}</td>
-            <td>{transaction.input.timestamp}</td>
-          </tr>
-            
-               )} 
-            
-           
-            
-
-        </table>
-      
+       
+  
+       
         
         </div>
        </header>

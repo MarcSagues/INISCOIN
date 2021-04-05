@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -12,12 +12,17 @@ import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
+import { useStateValue } from '../context/StateProvider';
+import { actionTypes } from '../context/reducer';
+import { useHistory } from 'react-router';
+import { db } from '../context/axios';
+
 
 function Copyright() {
   return (
     <Typography variant="body2" color="textSecondary" align="center">
       {'Copyright © '}
-      <Link color="inherit" href="https://material-ui.com/">
+      <Link color="inherit" href="/home">
         INIS
       </Link>{' '}
       {new Date().getFullYear()}
@@ -55,9 +60,39 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+
 export default function SignIn() {
   const classes = useStyles();
+  const [{user}, dispacth] = useStateValue();
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const history = useHistory();
+  const [users, setUsers] = useState([]);
 
+
+  useEffect(() => {
+
+    db.get('/users').then((result) => {
+        
+      setUsers(result.data);
+
+      console.table(result.data[0].username);
+
+      
+      
+    });
+  }); 
+  
+  const CheckSignIn = (e) => {
+    e.preventDefault();
+    console.log(email);
+    dispacth({
+      type: actionTypes.SET_USER,
+      user: 'user11',
+    })
+    history.push('/home');
+
+  }; 
   return (
     <Container component="main" maxWidth="xs">
       <CssBaseline />
@@ -79,6 +114,7 @@ export default function SignIn() {
             label="Email Address"
             name="email"
             autoComplete="email"
+            onChange={(e) => setEmail(e.target.value)} //settejar el valor del email i guardar-ho dins la variable email
             autoFocus
           />
           <TextField
@@ -91,6 +127,8 @@ export default function SignIn() {
             type="password"
             id="password"
             autoComplete="current-password"
+            onChange={(e) => setPassword(e.target.value)} //settejar el valor del email i guardar-ho dins la variable email
+
           />
           <FormControlLabel
             control={<Checkbox value="remember" color="primary" />}
@@ -102,6 +140,7 @@ export default function SignIn() {
             variant="contained"
             color="primary"
             className={classes.submit}
+            onClick={(e) => CheckSignIn(e) }
           >
             Sign In
           </Button>

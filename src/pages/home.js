@@ -4,10 +4,14 @@ import Block from '../blockchain/src/blockchain/block';
 import Blockchain from '../blockchain/src/blockchain/blockchain';
 import P2PService from '../blockchain/src/service/p2p';
 import BlocksTable from '../containers/BlocksTable';
+import {useStateValue} from '../context/StateProvider';
 
 import React, { Component, useEffect, useState } from 'react'
 import Select from 'react-select'
 import axios from 'axios';
+import { actionTypes } from '../context/reducer';
+import { db } from '../context/axios';
+
 
 
 
@@ -71,9 +75,16 @@ function Home() {
   const[blocks,setBlocks] = useState([]);
   const[transactions,setTransactions] = useState([]);
 
+  const [{email}, dispacth /*fa accions*/] = useStateValue(); //agafem valor del reducer
+
   p2pService.sync();
 
   useEffect(() => {
+    console.log('First email: '+email);
+    dispacth({
+      type: actionTypes.SET_EMAIL,
+      email: 'holasoc'
+    });
 
     axios.get('http://localhost:3000/blocks').then((result) => {
       console.table(result.data);
@@ -86,8 +97,23 @@ function Home() {
       setTransactions(result.data);
       
     })
-
-  }, []);
+    //crides db
+    db.get('/users').then((result) => {
+      console.table(result.data[0].username);
+    })
+    /*
+    const user = {
+      username: 'user2',
+      password: 'admin',
+      email: 'user2@'
+    }
+    db.post('/addUser', user)
+      .then(res => {
+        console.log(res);
+        console.log(res.data);
+      })*/
+  }
+  , []);
 
    var idBlocks = 0; 
   return (
@@ -118,6 +144,8 @@ function Home() {
             <td>{
             block.timestamp}</td>
             <td>{block.difficulty}</td>
+
+
           </tr>
             
                )} 

@@ -14,6 +14,8 @@ import Home from './pages/home'
 import SignIn from './pages/signin'
 import SignUp from './pages/signup'
 import Profile from './pages/profile'
+import ConfirmEmail from './pages/confirm_email'
+import ResultConfirm from './pages/result_confirm'
 
 import './pages/styles/mine.css'
 
@@ -46,8 +48,6 @@ const options = [
 
 }
 */
-
-
 
 
 
@@ -91,7 +91,12 @@ function App() {
   <Navbar />
     <Profile />
   </Route>
-
+  <Route exact path="/confirm_email">
+    <ConfirmEmail />
+  </Route>
+  <Route exact path="/result_confirm">
+    <ResultConfirm/>
+  </Route>
 </Switch>
 </Router>
 

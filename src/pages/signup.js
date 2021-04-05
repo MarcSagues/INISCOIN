@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -12,12 +12,16 @@ import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
+import { useStateValue } from '../context/StateProvider';
+import { useHistory } from 'react-router';
+import { actionTypes } from '../context/reducer';
+import { db } from '../context/axios';
 
 function Copyright() {
   return (
     <Typography variant="body2" color="textSecondary" align="center">
       {'Copyright © '}
-      <Link color="inherit" href="http://localhost:3001">
+      <Link color="inherit" href="/home">
         INIS
       </Link>{' '}
       {new Date().getFullYear()}
@@ -57,16 +61,87 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function SignUp() {
-  const classes = useStyles();
+  
+
+    const classes = useStyles();
+    const [{user}, dispacth] = useStateValue();
+    const [username, setUsername] = useState('');
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+    const[users,setUsers] = useState([]);
+    const history = useHistory();
+  
+    function checkUserAndEmail(){
+      
+     
+    };
+
+    useEffect(() => {
+
+    db.get('/users').then((result) => {
+        
+      setUsers(result.data);
+
+      console.table(result.data[0].username);
+
+      
+      
+    });
+  }); 
+
+    const AddUser = (e) => {
+      e.preventDefault();
+
+      
+      console.log('response2 = '+users);
+      var response = 0;
+    for (var i = 0; i < users.length; i++){
+
+          if (users[i].username === username){
+            response = 1;
+
+          } 
+          if (users[i].email === email){
+            response = 2;
+
+          } 
+          
+
+        }
+        
+      console.log('response return = '+response);
+      if (response == 0){
+        const user = {
+          username: username,
+          password: password,
+          email: email
+        }
+        db.post('/addUser', user)
+          .then(res => {
+            console.log(res);
+            console.log(res.data);
+          });
+        console.log(email);
+        dispacth({
+          type: actionTypes.SET_USER,
+          username: username,
+          email: email,
+          password: password,
+  
+        })
+        history.push('/confirm_email');
+      } else {
+        console.log('error');
+      }
+
+      
+      
+  
+    }; 
 
   return (
     <Container component="main" maxWidth="xs">
       <CssBaseline />
-      <div class="box-1">
-        <div class="btn btn-one">
-          <span>HOVER ME</span>
-        </div>
-      </div>
       <div className={classes.paper}>
         <Avatar className={classes.avatar}>
           <LockOutlinedIcon />
@@ -86,6 +161,7 @@ export default function SignUp() {
             type="text"
             id="user"
             autoComplete="current-password"
+            onChange={(e) => setUsername(e.target.value)} //settejar el valor del email i guardar-ho dins la variable email
           />
           <TextField
             variant="outlined"
@@ -97,6 +173,7 @@ export default function SignUp() {
             name="email"
             autoComplete="email"
             autoFocus
+            onChange={(e) => setEmail(e.target.value)} //settejar el valor del email i guardar-ho dins la variable email
           />
           <TextField
             variant="outlined"
@@ -108,6 +185,7 @@ export default function SignUp() {
             type="password"
             id="password"
             autoComplete="current-password"
+            onChange={(e) => setPassword(e.target.value)} //settejar el valor del email i guardar-ho dins la variable email
           />
           <Button
             type="submit"
@@ -115,6 +193,7 @@ export default function SignUp() {
             variant="contained"
             color="primary"
             className={classes.submit}
+            onClick={AddUser}
           >
             Sign Up
           </Button>
@@ -126,7 +205,7 @@ export default function SignUp() {
             </Grid>
             <Grid item>
               <Link href="/signin" variant="body2">
-                {"Don't have an account? Sign In"}
+                {"Already have an account? Sign In"}
               </Link>
             </Grid>
           </Grid>

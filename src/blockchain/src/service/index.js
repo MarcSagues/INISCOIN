@@ -5,13 +5,20 @@
 
 import express from 'express';
 import Cors from 'cors';
-
+import mongoose from 'mongoose';
 import Blockchain from '../blockchain/blockchain.js';
 import P2PService, {MESSAGE} from './p2p.js';
 import Wallet from '../wallet/wallet.js';
 import Miner from '../miner/miner.js'
+import User from './models/users.db.js'
+import usersDb from './models/users.db.js';
 
-
+const connectionUrl = 'mongodb+srv://admin:ZHmCCPWOb6aagC8o@cluster0.d1r0v.mongodb.net/INIS?retryWrites=true&w=majority';
+mongoose.connect(connectionUrl, {
+    useCreateIndex: true,
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+  });
 //HTTP_PORT => Variable d'entorn
 //Posem port al HTTP (3000 per defecte)
 const { HTTP_PORT = 3000} = process.env;
@@ -100,6 +107,38 @@ app.post('/wallet', (req,res) => {
     const { publicKey } = new Wallet(blockchain);
     res.json({ publicKey });
 })
+
+app.get('/users', (req,res) => {
+    User.find(
+        /* si volem filtrar per username --> { username: 'user1' },*/
+     (err, data) => {
+        if (err) {
+          res.status(500).send('ERR');
+        } else {
+          res.status(200).send(data);
+        }
+      });
+})
+
+
+
+app.post('/addUser', (req,res) => {
+    if (req.body !== null) {
+        User.create({
+            username: req.body.username,
+            email: req.body.email,
+            password: req.body.password,
+        }, (err, data) => {
+            if (err) {
+              res.status(500).send('ERR');
+            } else {
+              res.status(200).send(data);
+            }
+    })
+        }    
+})
+
+
 app.listen(HTTP_PORT, () => {
     console.log(`Service HTTP: ${HTTP_PORT}listening...`);
     //una vez tenemos el servicio levantado, escuchamos 
