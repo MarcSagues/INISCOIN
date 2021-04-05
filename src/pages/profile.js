@@ -5,10 +5,10 @@ import Blockchain from '../blockchain/src/blockchain/blockchain';
 import P2PService from '../blockchain/src/service/p2p';
 import BlocksTable from '../containers/BlocksTable';
 
-
-import React, { Component, useEffect, useState } from 'react'
+import React, { Component, useEffect, useState} from 'react'
 import Select from 'react-select'
 import axios from 'axios';
+import { useStateValue } from '../context/StateProvider';
 
 
 
@@ -71,11 +71,11 @@ function Profile() {
   //console.log(blockchain.blocks[0].data);
   const[blocks,setBlocks] = useState([]);
   const[transactions,setTransactions] = useState([]);
-
+  const [{wallet,username,email}, dispacth] = useStateValue();
   p2pService.sync();
 
   useEffect(() => {
-
+  console.log('HERE IS THE WALLET'+ wallet)
     axios.get('http://localhost:3000/blocks').then((result) => {
       console.table(result.data);
       setBlocks(result.data);
@@ -99,8 +99,15 @@ function Profile() {
         <div className="div_profile" alt="logo">
           
        
-  
-       
+          <h1 id="header1"> Wallet address </h1>
+          <h1 id="wallet"> {wallet}</h1>
+          <h1 id="header2"> Email address</h1>
+          <h1 id="email"> {email}</h1>
+          <h1 id="header3" > Username </h1>
+          <h1 id="user"> {username}</h1>
+
+
+
         
         </div>
        </header>

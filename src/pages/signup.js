@@ -20,7 +20,12 @@ import { db } from '../context/axios';
 import emailjs from 'emailjs-com';
 import jQuery from 'jquery';
 import{ init } from 'emailjs-com';
+import Wallet from '../../src/blockchain/src/wallet/wallet';
+import axios from 'axios';
+
+
 init("user_gyduzqABXjCbxIEE3cTiY");
+
 
 var randomNumber = 0; 
 function Copyright() {
@@ -76,7 +81,8 @@ export default function SignUp() {
     const [password, setPassword] = useState('');
     const[users,setUsers] = useState([]);
     const history = useHistory();
-  
+    const[blockchain,setBlockchain] = useState([]);
+
     
     function showErrorUsername(){
       jQuery('#usernameError').addClass('errorVisible');
@@ -111,8 +117,14 @@ export default function SignUp() {
       setUsers(result.data);
 
       console.table(result.data[0].username);
-
-      
+    
+        
+    
+        axios.get('http://localhost:3000/blocks').then((result) => {
+          console.table(result.data);
+          setBlockchain(result.data);
+          
+        })
       
     });
   }); 
@@ -170,6 +182,7 @@ export default function SignUp() {
             alert('Ocurrió un problema al enviar el correo', + err);
            console.log("FAILED. error=", err);
         });
+        const wallet = new Wallet(blockchain, 0);
         dispacth({
           type: actionTypes.SET_EMAIL,
           email: email,
@@ -185,7 +198,21 @@ export default function SignUp() {
           password: password,
           
         });
-
+        dispacth({
+          type: actionTypes.SET_WALLET,
+          wallet: wallet.publicKey,
+          
+        });
+        dispacth({
+          type: actionTypes.SET_AMOUNT,
+          amount: '0',
+          
+        });
+        dispacth({
+          type: actionTypes.SET_CREATION,
+          creation: Date.now().toString(),
+          
+        });
         history.push('/confirm_email');
       } else {
         console.log('error');

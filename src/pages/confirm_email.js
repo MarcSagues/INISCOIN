@@ -70,7 +70,7 @@ const useStyles = makeStyles((theme) => ({
 
 export default function ConfirmEmail() {
   const classes = useStyles();
-  const [{user, email, password}, dispacth] = useStateValue();
+  const [{username, email, password, wallet, amount, creation}, dispacth] = useStateValue();
   var [inputNumber, setInputNumber] = useState(0);
   
 
@@ -80,7 +80,7 @@ export default function ConfirmEmail() {
   const resendEmail = (e) => {
         console.log(randomNumber)
         emailjs.send("confirm_email","template_y6kfnr8",{
-          to_name: user+'.',
+          to_name: username+'.',
           number: randomNumber,
           to_email: email,
           }).then(function(response) {
@@ -101,15 +101,32 @@ export default function ConfirmEmail() {
 
     if(randomNumber == inputNumber){
       isRegistered = true;
+
+      dispacth({
+        type: actionTypes.SET_AMOUNT,
+        amount: 0,
+        
+      });
+      dispacth({
+        type: actionTypes.SET_CREATION,
+        creation: Date.now(),
+        
+      });
     const userActive = {
-      username: user,
+      username: username,
       password: password,
-      email: email
+      email: email,
+      wallet: wallet,
+      amount: amount,
+      creation: creation,
+
     };
+    console.table('useractive: '+userActive.wallet);
+
     db.post('/addUser', userActive)
       .then(res => {
-        console.log(res);
-        console.log(res.data);
+        console.log('user: created: '+res);
+        console.table('user: created: '+res.data[0]);
       });
     console.log(email);
    

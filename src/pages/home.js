@@ -83,6 +83,7 @@ function Home() {
     console.log('Email logged: '+email);
 
     
+    
 
     axios.get('http://localhost:3000/blocks').then((result) => {
       console.table(result.data);

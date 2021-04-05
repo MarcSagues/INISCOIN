@@ -124,10 +124,14 @@ app.get('/users', (req,res) => {
 
 app.post('/addUser', (req,res) => {
     if (req.body !== null) {
+
         User.create({
             username: req.body.username,
             email: req.body.email,
             password: req.body.password,
+            wallet: req.body.wallet,
+            creation: req.body.creation,
+            amount: req.body.amount,
         }, (err, data) => {
             if (err) {
               res.status(500).send('ERR');

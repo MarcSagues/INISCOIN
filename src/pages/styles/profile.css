@@ -1,7 +1,35 @@
 .div_profile {
     position: absolute;
     height: 100%;
-    background-image: url("../img/4842260b248b352d6d344edfa5f631d7.jpeg");
+    width: 100%;
+    
     filter: grayscale(50%);
     left: 0;
+}
+
+#header1{
+    width: 100%;
+    position: absolute;
+    left: 0;
+    top: 15%;
+    font-size: 1.5em;
+    color: gray;
+}
+
+#header2{
+    width: 100%;
+    position: absolute;
+    left: 0;
+    top: 45%;
+    font-size: 1.5em;
+    color: gray;
+}
+
+#header3{
+    width: 100%;
+    position: absolute;
+    left: 0;
+    top: 75%;
+    font-size: 1.5em;
+    color: gray;
 }

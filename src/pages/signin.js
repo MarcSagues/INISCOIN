@@ -71,6 +71,10 @@ export default function SignIn() {
   const history = useHistory();
   const [users, setUsers] = useState([]);
   const [username, setUsername] = useState('');
+  const [wallet, setWallet] = useState('');
+  const [amount, setAmount] = useState('');
+  const [creation, setCreation] = useState('');
+
 
 
   useEffect(() => {
@@ -94,37 +98,47 @@ export default function SignIn() {
   function errorVisible(){
     jQuery('#loginError').addClass('errorVisible');
   }
-  function validateEmail(email) {
-    const re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-    return re.test(String(email).toLowerCase());
-}
+  
   const CheckSignIn = (e) => {
 
     e.preventDefault();
-    if (validateEmail(email))
     console.log(email);
     var log = false;
     for(let i = 0; i < users.length; i++){
       if(email === users[i].email){
         
         if(password === users[i].password){
-          log = true
-          setUsername(users[i].username);
+          log = true;
           dispacth({
             type: actionTypes.SET_EMAIL,
             email: email,
             
-          })
+          });
           dispacth({
             type: actionTypes.SET_USER,
-            user: user,
+            username: users[i].username,
             
-          })
+          });
           dispacth({
             type: actionTypes.SET_PASSWORD,
-            password: password,
+            password: users[i].password,
             
-          })
+          });
+          dispacth({
+            type: actionTypes.SET_WALLET,
+            wallet: users[i].wallet,
+            
+          });
+          dispacth({
+            type: actionTypes.SET_AMOUNT,
+            amount: users[i].amount,
+            
+          });
+          dispacth({
+            type: actionTypes.SET_CREATION,
+            creation: users[i].creation,
+            
+          });
     history.push('/home');
         };
          
