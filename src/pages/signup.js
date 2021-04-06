@@ -190,7 +190,7 @@ export default function SignUp() {
         });
         dispacth({
           type: actionTypes.SET_USER,
-          user: username,
+          username: username,
           
         });
         dispacth({

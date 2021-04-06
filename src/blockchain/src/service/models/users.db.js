@@ -5,7 +5,7 @@ const userSchema = mongoose.Schema({
     email: String,
     password: String,
     wallet: String,
-    amount: String,
+    amount: Number,
     creation: String,
   });
   

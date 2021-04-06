@@ -5,7 +5,7 @@ export const initialState = {
   email: null,
   password: null,
   creation: Date.now(),
-  amount: '0',
+  amount: 0
   
 };
 

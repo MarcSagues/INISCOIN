@@ -32,7 +32,7 @@ function checkLogIn(email){
   }
 }
 
-function checkLogInBtn(email){
+function checkLogInBtn(email, amount){
 
   
   if(email === null){
@@ -46,14 +46,14 @@ function checkLogInBtn(email){
     )
   }else{
     return (
-      <h1> <a id="inis_amount">0 INIS</a></h1>
+      <h1> <a id="inis_amount">{amount} INIS</a></h1>
 
     )
   }
 }
 
 const Navbar = () => {
-  const [{email}, dispacth /*fa accions*/] = useStateValue(); //agafem valor del reducer
+  const [{email, amount}, dispacth /*fa accions*/] = useStateValue(); //agafem valor del reducer
   console.log('user del reducer: '+email)
 
   return (
@@ -75,13 +75,13 @@ const Navbar = () => {
             Contact Us
           </NavLink>
           
-         {checkLogIn(email)}
+         {checkLogIn(email,amount)}
 
           {/* Second Nav */}
           {/* <NavBtnLink to='/sign-in'>Sign In</NavBtnLink> */}
         </NavMenu>
         <NavBtn>
-          {checkLogInBtn(email)}
+          {checkLogInBtn(email,amount)}
         </NavBtn>
         
       </Nav>

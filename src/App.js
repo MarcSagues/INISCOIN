@@ -14,6 +14,7 @@ import Home from './pages/home'
 import SignIn from './pages/signin'
 import SignUp from './pages/signup'
 import Profile from './pages/profile'
+import Dashboard from './pages/dashboard/Dashboard'
 import ConfirmEmail from './pages/confirm_email'
 import ResultConfirm from './pages/result_confirm'
 
@@ -88,8 +89,8 @@ function App() {
     <Home />
   </Route>
   <Route exact path="/profile">
-  <Navbar />
-    <Profile />
+    <Navbar/>
+    <Dashboard />
   </Route>
   <Route exact path="/confirm_email">
     <ConfirmEmail />

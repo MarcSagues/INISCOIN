@@ -130,8 +130,8 @@ app.post('/addUser', (req,res) => {
             email: req.body.email,
             password: req.body.password,
             wallet: req.body.wallet,
-            creation: req.body.creation,
             amount: req.body.amount,
+            creation: req.body.creation,
         }, (err, data) => {
             if (err) {
               res.status(500).send('ERR');
@@ -140,6 +140,24 @@ app.post('/addUser', (req,res) => {
             }
     })
         }    
+})
+
+app.post('/addAmount', (req,res) => {
+  if (req.body !== null) {
+    const filter = {wallet: req.body.wallet};
+    const updateAmount = {amount: req.body.amount}
+      User.findOneAndUpdate(filter,updateAmount,{
+
+          new: true
+
+      }, (err, data) => {
+          if (err) {
+            res.status(500).send('ERR');
+          } else {
+            res.status(200).send(data);
+          }
+  })
+      }    
 })
 
 

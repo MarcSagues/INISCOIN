@@ -7,88 +7,22 @@ import React, { Component, useEffect, useState } from 'react'
 import Select from 'react-select'
 import axios from 'axios';
 import jQuery from 'jquery'
+import { useStateValue } from '../context/StateProvider';
+import { actionTypes } from '../context/reducer';
+import { db } from '../context/axios';
 
-const AMOUNT = 15;
+const AMOUNT = 1;
 
-class Mine extends Component{
+var WALLET;
 
-   
 
-    constructor(props) {
-        super(props);
-        this.mine24h = this
-            .mine24h
-            .bind(this);
-        this.isLogged = true;
-        
-    }
-    
-     mine24h = () =>{
 
-        
-            startTimer();
-            axios.post('http://localhost:3000/transaction',{
-                amount: AMOUNT.toString(),
-                recipient: '043f2067b91a58b3f406771467c67d15e7f15bb5fee0fced52356dc8ad58228ffc44ed383ee931621f9e31b96c36b091d666a24bfb84682033cfa78bbd831dc4e2'
-          }).then((result) => {
-            console.log(result);
-        }, (error) => {
-          console.log(error);
-            });
-        
-          
-    }
 
     
-     checkLogIn() {
-         
-        if (this.isLogged === true  ){
-            return (
 
-                <div className="mine">
-                  
-                  <header className="App-header">
 
-                    <div className="mineDiv" >
-                      <br></br>
-                      <br></br>
-                      <header id="header1">EARN YOUR INIS</header>
-                      <br></br>
-                      <br></br>
-                      <header id="header2">Every 24 hours you can claim your rewards.</header>
-                        <br></br>
-                      <header id="header3">The standard mining rate is 1 INIS/day</header>
-                      <button id="btn_mine" onClick={this.mine24h}>MINE</button>
-                    </div>
+
       
-                   </header>
-                    
-                </div>
-              );
-        }else {
-            return (
-
-                <div className="mine">
-                  
-                  <header className="App-header">
-                 
-                      
-                    <div className="mineDiv" >
-                      <button id="btn_mine" onClick={this.mine24h} disabled>DISABLEEEED</button>
-                    </div>
-                  
-                    
-                    
-                   </header>
-                    
-                </div>
-              );
-        }
-    }
-  render(){
-  return this.checkLogIn();
-  }
-}
 /*
 setInterval(function time(){
     var d = new Date();
@@ -157,7 +91,99 @@ setInterval(function time(){
             return ((zero.repeat(width - length)) + numberOutput.toString()); 
         }
     }
+  }
+  export default function Mine() {
+    const [{wallet,username,email, amount}, dispacth] = useStateValue();
+    var totalAmount = 0;
+    
+    
+    function Mine24() {
+       totalAmount =  parseInt(amount) + AMOUNT;
+
+        
+      startTimer();
+
+      axios.post('http://localhost:3000/transaction',{
+          amount: AMOUNT,
+          recipient: wallet,
+    }).then((result) => {
+      console.log(result);
+      dispacth({
+        type: actionTypes.SET_AMOUNT,
+        amount: totalAmount,
+        
+      });
+      
+      
+  }, (error) => {
+    console.log(error);
+      });
+  
+      const userActive = {
+        
+        amount: totalAmount,
+        wallet: wallet,
+  
+      };
+
+      console.table('useractive: '+userActive.amount);
+      
+      db.post('/addAmount', userActive)
+      .then(res => {
+        console.log('amount: updated: '+res);
+        console.table('amount: updated: '+res.data[0]);
+      }, (error) => {
+        console.log(error);
+          
+      });
+      
+          
+      
+    
 }
 
 
-export default Mine;
+    if (wallet !== null  ){
+      return (
+
+          <div className="mine">
+            
+            <header className="App-header">
+
+              <div className="mineDiv" >
+              
+                <header id="header1">EARN YOUR INIS</header>
+
+
+                <header id="header2">Every 24 hours you can claim your rewards.</header>
+
+                <header id="header3">The standard mining rate is 1 INIS/day</header>
+                <button id="btn_mine" onClick={Mine24}>MINE</button>
+              </div>
+
+             </header>
+              
+          </div>
+        );
+  }else {
+      return (
+
+          <div className="mine">
+            
+            <header className="App-header">
+           
+                
+              <div className="mineDiv" >
+                <button id="btn_mine"  disabled>DISABLEEEED</button>
+              </div>
+            
+              
+              
+             </header>
+              
+          </div>
+        );
+  }
+    
+  
+    }   
