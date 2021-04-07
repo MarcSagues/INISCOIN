@@ -85,20 +85,20 @@ function Home() {
     
     
 
-    axios.get('http://localhost:3000/blocks').then((result) => {
+    axios.get('http://localhost:3001/blocks').then((result) => {
       console.table(result.data);
       setBlocks(result.data);
       
     })
 
-    axios.get('http://localhost:3000/transactions').then((result) => {
+    axios.get('http://localhost:3001/transactions').then((result) => {
       console.table(result.data);
       setTransactions(result.data);
       
     })
     //crides db
     db.get('/users').then((result) => {
-      console.table(result.data[0].username);
+
     })
     /*
     const user = {
@@ -123,7 +123,7 @@ function Home() {
         <div className="div1" alt="logo">
         <h1 id="header_table"> White Papaer </h1>
           
-        <table>
+        <table id="table">
           
           
           <th>HASH</th>  

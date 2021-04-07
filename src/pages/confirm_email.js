@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -70,10 +70,21 @@ const useStyles = makeStyles((theme) => ({
 
 export default function ConfirmEmail() {
   const classes = useStyles();
-  const [{username, email, password, wallet, amount, creation}, dispacth] = useStateValue();
+  const [{username, email, password, wallet, amount, creation, referralLider, dateNowClick}, dispacth] = useStateValue();
   var [inputNumber, setInputNumber] = useState(0);
-  
+  var [user, setUser] = useState([]);
+  useEffect(() => {
 
+    db.get('/users').then((result) => {
+        
+      setUser(result.data);
+
+
+
+      
+      
+    });
+  }); 
   
   const history = useHistory();
  
@@ -119,26 +130,49 @@ export default function ConfirmEmail() {
       wallet: wallet,
       amount: amount,
       creation: creation,
+      referralLink: 'iniscoin.com/signup?referral='+username,
+      referralLider: referralLider,
+      dateNowClick: dateNowClick,
+
 
     };
     console.table('useractive: '+userActive.wallet);
+
+    alert('counttt:' + (parseInt(user)+1));
 
     db.post('/addUser', userActive)
       .then(res => {
         console.log('user: created: '+res);
         console.table('user: created: '+res.data[0]);
       });
+     
+      var count = 0;
+      for (let i = 0; i < user.length; i++){
+        if (user[i].username === referralLider){
+            count = user[i].referralCount + 1;
+        }
+      } 
+      
+      //sumem un al contador de referidos del lider
+      db.post('/addReferral', {username: referralLider, referralCount: count})
+      .then(res => {
+        alert('ok');
+      }, (error) => {
+        alert('error '+error);
+
+          
+      });
     console.log(email);
    
-    history.push('/result_confirm');
 
     }else {
       isRegistered = false;
 
       console.log('erorr');
-    history.push('/result_confirm');
 
     }
+    history.push('/result_confirm');
+
 
 }
   return (

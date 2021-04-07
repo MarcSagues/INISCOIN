@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import {
   Nav,
@@ -11,6 +11,7 @@ import {
 import {useStateValue} from '../../context/StateProvider';
 import Logo from './img/userIcon2.jpeg';
 import './navbar.css'
+import jQuery from 'jquery'
 
 
 function checkLogIn(email){
@@ -56,6 +57,14 @@ const Navbar = () => {
   const [{email, amount}, dispacth /*fa accions*/] = useStateValue(); //agafem valor del reducer
   console.log('user del reducer: '+email)
 
+  useEffect (() => {
+    jQuery('#inis_amount').each( function () {
+      // get value of table cell and convert to number...
+      var val = parseFloat(amount);
+      // put it back as fixed point value
+      jQuery(this).text(val.toFixed(2)+' INIS');
+  });
+  })
   return (
     <>
       <Nav>

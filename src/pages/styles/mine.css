@@ -16,10 +16,10 @@
 
 
 #btn_mine{
-    position: absolute;
-    width: 50%;
-    top: 70%;
-    left: 22%;
+    position: relative;
+    width: 50vmin;
+    top: 27vmin;
+    left: 13vmin;
     border-radius: 4px;
     background: #3578e3;
     padding: 10px 22px;

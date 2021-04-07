@@ -1,11 +1,14 @@
 export const initialState = {
   username: null,
   wallet: null,
-  dateNowClick: 0,
+  dateNowClick: (Date.now() - (48*86400000)),
   email: null,
   password: null,
   creation: Date.now(),
-  amount: 0
+  amount: 0,
+  referralLink: null, 
+  referralLider: null,
+  referralCount: 0,
   
 };
 
@@ -16,6 +19,12 @@ export const actionTypes = {
   SET_WALLET: "SET_WALLET",
   SET_CREATION: "SET_CREATION",
   SET_AMOUNT: "SET_AMOUNT",
+  SET_DATENOWCLICK: "SET_DATENOWCLICK",
+  SET_REFERRALLINK: "SET_REFERRALLINK",
+  SET_REFERRALLIDER: "SET_REFERRALLIDER",
+  SET_REFERRALCOUNT: "SET_REFERRALCOUNT",
+
+
 };
 
 const reducer = (state, action) => {
@@ -55,6 +64,30 @@ const reducer = (state, action) => {
       return {
         ...state, //AGAFA TOT EL STATE
         amount: action.amount,
+      };
+      case actionTypes.SET_DATENOWCLICK:
+      console.log('action types: '+action.dateNowClick);
+      return {
+        ...state, //AGAFA TOT EL STATE
+        dateNowClick: action.dateNowClick,
+      };
+      case actionTypes.SET_REFERRALLIDER:
+      console.log('action types: '+action.referralLider);
+      return {
+        ...state, //AGAFA TOT EL STATE
+        referralLider: action.referralLider,
+      };
+      case actionTypes.SET_REFERRALLINK:
+      console.log('action types: '+action.referralLink);
+      return {
+        ...state, //AGAFA TOT EL STATE
+        referralLink: action.referralLink,
+      };
+      case actionTypes.SET_REFERRALCOUNT:
+      console.log('action types: '+action.referralCount);
+      return {
+        ...state, //AGAFA TOT EL STATE
+        referralCount: action.referralCount,
       };
 
     default:

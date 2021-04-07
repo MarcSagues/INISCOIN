@@ -33,7 +33,10 @@ const MyComponent = () => (
   
 )
 
+function ref() {
 
+  return alert('EEEOOOOO');
+}
 
 
 
@@ -76,13 +79,13 @@ function Profile() {
 
   useEffect(() => {
   console.log('HERE IS THE WALLET'+ wallet)
-    axios.get('http://localhost:3000/blocks').then((result) => {
+    axios.get('http://localhost:3001/blocks').then((result) => {
       console.table(result.data);
       setBlocks(result.data);
       
     })
 
-    axios.get('http://localhost:3000/transactions').then((result) => {
+    axios.get('http://localhost:3001/transactions').then((result) => {
       console.table(result.data);
       setTransactions(result.data);
       

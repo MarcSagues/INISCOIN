@@ -115,12 +115,10 @@ export default function SignUp() {
     db.get('/users').then((result) => {
         
       setUsers(result.data);
-
-      console.table(result.data[0].username);
     
         
     
-        axios.get('http://localhost:3000/blocks').then((result) => {
+        axios.get('http://localhost:3001/blocks').then((result) => {
           console.table(result.data);
           setBlockchain(result.data);
           
@@ -183,6 +181,9 @@ export default function SignUp() {
            console.log("FAILED. error=", err);
         });
         const wallet = new Wallet(blockchain, 0);
+        var paramLink = window.location.search.substring(1);
+        var paramLinkParsed = paramLink.split('=')
+        console.log('getURL: '+paramLinkParsed[1]);
         dispacth({
           type: actionTypes.SET_EMAIL,
           email: email,
@@ -213,6 +214,26 @@ export default function SignUp() {
           creation: Date.now().toString(),
           
         });
+        
+        dispacth({
+          type: actionTypes.SET_REFERRALLIDER,
+          referralLider: paramLinkParsed[1],
+          
+        });
+        dispacth({
+          type: actionTypes.SET_REFERRALLINK,
+          referralLider: 'iniscoin.com/signup?referral='+username,
+          
+        });
+        dispacth({
+          type: actionTypes.SET_REFERRALCOUNT,
+          referralCount: 0,
+          
+        });
+        
+       
+
+        
         history.push('/confirm_email');
       } else {
         console.log('error');
@@ -283,6 +304,16 @@ export default function SignUp() {
             id="password"
             autoComplete="current-password"
             onChange={(e) => setPassword(e.target.value)} //settejar el valor del email i guardar-ho dins la variable email
+          />
+          <TextField
+            variant="outlined"
+            margin="normal"
+            fullWidth
+            name="user"
+            label="Referral Code"
+            type="text"
+            id="user"
+            autoComplete="current-password"
           />
           <Button
             type="submit"

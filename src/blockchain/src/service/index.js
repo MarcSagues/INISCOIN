@@ -21,7 +21,7 @@ mongoose.connect(connectionUrl, {
   });
 //HTTP_PORT => Variable d'entorn
 //Posem port al HTTP (3000 per defecte)
-const { HTTP_PORT = 3000} = process.env;
+const { HTTP_PORT = 3001} = process.env;
 
 //creem app d'express
 
@@ -132,6 +132,11 @@ app.post('/addUser', (req,res) => {
             wallet: req.body.wallet,
             amount: req.body.amount,
             creation: req.body.creation,
+            referralLink: req.body.referralLink,
+            referralLider: req.body.referralLider,
+            referralCount: 0,
+            dateNowClick: req.body.dateNowClick,
+
         }, (err, data) => {
             if (err) {
               res.status(500).send('ERR');
@@ -145,9 +150,45 @@ app.post('/addUser', (req,res) => {
 app.post('/addAmount', (req,res) => {
   if (req.body !== null) {
     const filter = {wallet: req.body.wallet};
-    const updateAmount = {amount: req.body.amount}
+    const updateAmount = {amount: req.body.amount, dateNowClick: req.body.dateNowClick}
+    
       User.findOneAndUpdate(filter,updateAmount,{
+    
+          new: true
 
+      }, (err, data) => {
+          if (err) {
+            res.status(500).send('ERR');
+          } else {
+            res.status(200).send(data);
+          }
+  })
+      }    
+})
+
+
+
+app.get('/getUserByUsername', (req,res) => {
+  User.find(
+    {username: req.body.username},
+      /* si volem filtrar per username --> { username: 'user1' },*/
+   (err, data) => {
+      if (err) {
+        res.status(500).send('ERR');
+      } else {
+        res.status(200).send(data);
+      }
+    });
+})
+
+
+app.post('/addReferral', (req,res) => {
+  if (req.body !== null) {
+    const filter = {username: req.body.username};
+    const updateAmount = {referralCount: req.body.referralCount}
+    
+      User.findOneAndUpdate(filter,updateAmount,{
+    
           new: true
 
       }, (err, data) => {

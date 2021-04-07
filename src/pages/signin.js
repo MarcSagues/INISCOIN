@@ -83,7 +83,7 @@ export default function SignIn() {
         
       setUsers(result.data);
 
-      console.table(result.data[0].username);
+
 
       
       
@@ -137,6 +137,26 @@ export default function SignIn() {
           dispacth({
             type: actionTypes.SET_CREATION,
             creation: users[i].creation,
+            
+          });
+          dispacth({
+            type: actionTypes.SET_DATENOWCLICK,
+            dateNowClick: users[i].dateNowClick,
+            
+          });
+          dispacth({
+            type: actionTypes.SET_REFERRALLIDER,
+            referralLider: users[i].referralLider,
+            
+          });
+          dispacth({
+            type: actionTypes.SET_REFERRALLINK,
+            referralLink: users[i].referralLink,
+            
+          });
+          dispacth({
+            type: actionTypes.SET_REFERRALCOUNT,
+            referralCount: users[i].referralCount,
             
           });
     history.push('/home');

@@ -17,6 +17,7 @@ import Profile from './pages/profile'
 import Dashboard from './pages/dashboard/Dashboard'
 import ConfirmEmail from './pages/confirm_email'
 import ResultConfirm from './pages/result_confirm'
+import Referrals from './pages/dashboard/leftMenu/Referrals'
 
 import './pages/styles/mine.css'
 
@@ -89,7 +90,6 @@ function App() {
     <Home />
   </Route>
   <Route exact path="/profile">
-    <Navbar/>
     <Dashboard />
   </Route>
   <Route exact path="/confirm_email">
@@ -97,6 +97,9 @@ function App() {
   </Route>
   <Route exact path="/result_confirm">
     <ResultConfirm/>
+  </Route>
+  <Route exact path="/referrals">
+    <Referrals/>
   </Route>
 </Switch>
 </Router>
