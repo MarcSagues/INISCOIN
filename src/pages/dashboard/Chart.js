@@ -40,6 +40,8 @@ export default function Chart() {
             dataKey="time"
             stroke={theme.palette.text.secondary}
             style={theme.typography.body2}
+            
+
           />
           <YAxis
             stroke={theme.palette.text.secondary}

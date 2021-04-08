@@ -18,6 +18,7 @@ import { useHistory } from 'react-router';
 import { db } from '../context/axios';
 import './styles/errors.css'
 import jQuery from 'jquery'
+import { Paper } from '@material-ui/core';
 
 
 function Copyright() {
@@ -82,10 +83,6 @@ export default function SignIn() {
     db.get('/users').then((result) => {
         
       setUsers(result.data);
-
-
-
-      
       
     });
   }); 
@@ -173,7 +170,12 @@ export default function SignIn() {
     
   }; 
   return (
-    <Container component="main" maxWidth="xs">
+    <div style={{ width:'80vmin'}}>
+    <Paper style={{height:'65vmin'}} >
+    <React.Fragment>
+
+    <Container component="main" maxWidth="xs"   >
+
       <CssBaseline />
       <div className={classes.paper}>
         <Avatar className={classes.avatar}>
@@ -238,7 +240,12 @@ export default function SignIn() {
       <Box mt={8}>
         <Copyright />
       </Box>
-    
     </Container>
+    </React.Fragment>
+
+    </Paper>
+    
+    </div>
+
   );
 }

@@ -151,9 +151,10 @@ var t;
       var amountBlockchain = 0;
       
       var dateClick =  Date.now();
-      if (referralLider !== undefined){
-    totalAmount =  amount + AMOUNT + (REFERRER_MULTIPLYER*(referralCount)+1);
-    amountBlockchain =  AMOUNT + (REFERRER_MULTIPLYER*(referralCount)+1);
+      if (referralLider !== null){
+    totalAmount =  amount + AMOUNT + (REFERRER_MULTIPLYER*(referralCount+1));
+    amountBlockchain =  AMOUNT + (REFERRER_MULTIPLYER*(referralCount+1));
+    alert('datenowclick: '+ (REFERRER_MULTIPLYER*parseInt(referralCount)));
 
       } else{
       alert('datenowclick: '+ (REFERRER_MULTIPLYER*parseInt(referralCount)).toFixed(2));

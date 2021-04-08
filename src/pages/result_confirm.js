@@ -16,6 +16,7 @@ import { useStateValue } from '../context/StateProvider';
 import { actionTypes } from '../context/reducer';
 import { useHistory } from 'react-router';
 import {isRegistered} from './confirm_email';
+import { Paper } from '@material-ui/core';
 
 
 function Copyright() {
@@ -75,6 +76,10 @@ export default function ResultConfirm() {
   
     if (isRegistered === true){
       return(
+        <div style={{ width:'80vmin'}}>
+        <Paper style={{height:'65vmin'}} >
+        <React.Fragment>
+    
       <Container component="main" maxWidth="xs">
         <CssBaseline />
         <div className={classes.paper}>
@@ -106,12 +111,20 @@ export default function ResultConfirm() {
         </Box>
       
       </Container>
+        </React.Fragment>
+        </Paper>
+        </div>
+
     );
     }
     //El codi es incorrecte
   
     if (isRegistered === false){
       return(
+        <div style={{ width:'80vmin'}}>
+        <Paper style={{height:'65vmin'}} >
+        <React.Fragment>
+    
       <Container component="main" maxWidth="xs">
         <CssBaseline />
         <div className={classes.paper}>
@@ -143,6 +156,9 @@ export default function ResultConfirm() {
         </Box>
       
       </Container>
+      </React.Fragment>
+      </Paper>
+      </div>
     );
     }
   }

@@ -7,12 +7,16 @@ import jQuery from 'jquery'
 import React, { useEffect } from 'react';
 
 
-function preventDefault(event) {
-  event.preventDefault();
-}
-
 export default function Deposits() {
   const [{amount}, dispatch] = useStateValue(); 
+
+  const inisAmount = {
+    paddingTop: '0.8em',
+  }
+  const viewWallet = {
+    paddingTop: '1.3em',
+    fontSize: '0.9em'
+  }
   useEffect(() => {
     jQuery('#amountInis').each( function () {
       // get value of table cell and convert to number...
@@ -24,14 +28,14 @@ export default function Deposits() {
   return (
     <React.Fragment>
       <Title>INIS AMOUNT</Title>
-      <Typography component="p" variant="h4" id='amountInis'>
+      <Typography component="p" variant="h4" id='amountInis' style={inisAmount}>
         {amount} INIS
       </Typography>
       <Typography color="textSecondary" sx={{ flex: 1 }}>
         on 06 April, 2021
       </Typography>
-      <div>
-        <Link color="primary" href="#" onClick={preventDefault}>
+      <div style={viewWallet}>
+        <Link href="/wallet"  >
           View wallet
         </Link>
       </div>

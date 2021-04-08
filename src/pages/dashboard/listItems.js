@@ -20,42 +20,47 @@ export const mainListItems = (
 
 
   <div>
+    <Link href='/dashboard' style={{ textDecoration: 'none'}} >
     <ListItem button>
-      <ListItemIcon>
+      <ListItemIcon style={{color: '#3578E3'}}>
         <DashboardIcon />
-      </ListItemIcon>
-      <Link href="/referrals" className="links" > Dashboard</Link>
-
+      </ListItemIcon >
+      <Link href="/referrals" className="links" style={{ textDecoration: 'none',color: '#3578E3' }}> <a class="a_links">Dashboard</a></Link>
     </ListItem>
+    </Link >
+    <Link href='/profile' style={{ textDecoration: 'none'}} >
     <ListItem button>
-      <ListItemIcon>
+    <Link href="/profile" className="links" style={{ textDecoration: 'none', color: '#3578E3' }}> 
+      <ListItemIcon style={{color: '#3578E3'}}>
         <BarChartIcon />
       </ListItemIcon>
-      <Link href="/referrals" className="links" > Profile</Link>
-
+      <a class="a_links">Profile</a> </Link>
     </ListItem>
-    <ListItem button>
-      <ListItemIcon>
+    </Link>
+    <Link href='/wallet' style={{ textDecoration: 'none'}} >
+    <ListItem button >
+      <ListItemIcon style={{color: '#3578E3'}} >
         <ShoppingCartIcon />
       </ListItemIcon>
-      <Link href="/referrals" className="links" > Wallet</Link>
-
+      <Link href="/wallet" className="links" style={{ textDecoration: 'none', color: '#3578E3' }}> <a class="a_links">Wallet</a></Link>
     </ListItem>
+    </Link>
+    <Link href='/referrals' style={{ textDecoration: 'none'}} >
     <ListItem button>
-      <ListItemIcon>
+      <ListItemIcon style={{color: '#3578E3'}}>
         <PeopleIcon />
       </ListItemIcon>
-      <Link href="/referrals" className="links" > Referrals</Link>
-
+      <Link href="/referrals" className="links" style={{ textDecoration: 'none', color: '#3578E3' }}> <a class="a_links">Referrals</a></Link>
     </ListItem >
-    
+    </Link>
+    <Link href='/settings' style={{ textDecoration: 'none'}} >
     <ListItem button>
-      <ListItemIcon>
+      <ListItemIcon style={{color: '#3578E3'}}>
         <LayersIcon />
       </ListItemIcon>
-      <Link href="/referrals" className="links" > Settings</Link>
-
+      <Link href="/settings" className="links" style={{ textDecoration: 'none', color: '#3578E3' }} > <a class="a_links">Settings</a></Link>
     </ListItem>
+    </Link>
   </div>
 );
 
@@ -63,10 +68,11 @@ export const secondaryListItems = (
   <div>
     <ListSubheader inset>Saved reports</ListSubheader>
     <ListItem button>
-      <ListItemIcon>
+      <ListItemIcon style={{color: '#3578E3'}}>
         <AssignmentIcon />
       </ListItemIcon>
-      <ListItemText primary="Log out" />
+      <Link href="/referrals" className="links" style={{ textDecoration: 'none', color: '#3578E3' }} > <a class="a_links">Log out</a></Link>
+
     </ListItem>
     
   </div>

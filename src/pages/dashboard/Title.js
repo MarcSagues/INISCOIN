@@ -3,8 +3,14 @@ import PropTypes from 'prop-types';
 import Typography from '@material-ui/core/Typography';
 
 function Title(props) {
+
+  const titles = {
+    color: '#3578e3',
+    fontSize: '1em',
+  }
+
   return (
-    <Typography component="h2" variant="h6" color="primary" gutterBottom>
+    <Typography style={titles} >
       {props.children}
     </Typography>
   );

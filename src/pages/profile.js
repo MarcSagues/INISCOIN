@@ -33,11 +33,6 @@ const MyComponent = () => (
   
 )
 
-function ref() {
-
-  return alert('EEEOOOOO');
-}
-
 
 
 function tableRow() {

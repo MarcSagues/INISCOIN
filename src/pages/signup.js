@@ -22,6 +22,7 @@ import jQuery from 'jquery';
 import{ init } from 'emailjs-com';
 import Wallet from '../../src/blockchain/src/wallet/wallet';
 import axios from 'axios';
+import { Paper } from '@material-ui/core';
 
 
 init("user_gyduzqABXjCbxIEE3cTiY");
@@ -82,7 +83,11 @@ export default function SignUp() {
     const[users,setUsers] = useState([]);
     const history = useHistory();
     const[blockchain,setBlockchain] = useState([]);
+    const [referrer, setReferrer] = useState('null');
 
+
+    const wallet = new Wallet(blockchain, 0);
+   
     
     function showErrorUsername(){
       jQuery('#usernameError').addClass('errorVisible');
@@ -98,6 +103,9 @@ export default function SignUp() {
     function showErrorPassword(){
       jQuery('#passwordError').addClass('errorVisible');
     }
+    function showErrorReferrer(){
+      jQuery('#referrerError').addClass('errorVisible');
+    }
 
 
     function dontShowErrorUsername(){
@@ -109,14 +117,21 @@ export default function SignUp() {
     function dontShowErrorEmailFormat(){
       jQuery('#emailError').removeClass('errorVisible');
     }
+    function dontShowErrorReferrer(){
+      jQuery('#referrerError').removeClass('errorVisible');
+    }
+    function dontShowErrorPassword(){
+      jQuery('#passwordError').removeClass('errorVisible');
+    }
+    
 
     useEffect(() => {
-
+     
     db.get('/users').then((result) => {
         
       setUsers(result.data);
     
-        
+      
     
         axios.get('http://localhost:3001/blocks').then((result) => {
           console.table(result.data);
@@ -130,17 +145,30 @@ export default function SignUp() {
     const re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
     return re.test(String(email).toLowerCase());
 }
+var paramLink = window.location.search.substring(1);
+var paramLinkParsed = paramLink.split('=')
+console.log('getURL: '+paramLinkParsed[1]);
     const AddUser = (e) => {
      
       e.preventDefault();
-
+      if (referrer === 'null'){
+        
+        setReferrer(paramLinkParsed[1]);
+        
+       
+        }
      if(validateEmail(email) && password.length > 6){
       dontShowErrorEmailFormat();
       console.log('response2 = '+users);
       var response = 0;
+      var responseRefer = 1;
+
       var mostrarUsername = 0;
       var mostrarEmail = 0;
-
+      var usernameReferrer = 0;
+      
+      
+      alert(referrer)
     for (var i = 0; i < users.length; i++){
 
           if (users[i].username === username){
@@ -154,6 +182,14 @@ export default function SignUp() {
             showErrorEmail();
             mostrarEmail = 1;
           } 
+          if (users[i].username === referrer || referrer === undefined || referrer === null || referrer === 'null'){
+            console.log('show error2: '+users[i].username);
+            
+            responseRefer = 0;
+            dontShowErrorReferrer();
+            usernameReferrer = 1;
+
+          } 
           
 
         }
@@ -164,8 +200,15 @@ export default function SignUp() {
           dontShowErrorEmail();
         }
         
+        if(usernameReferrer == 1){
+          dontShowErrorReferrer();
+
+          } else {
+            showErrorReferrer();
+          
+        }
       console.log('response return = '+response);
-      if (response == 0){
+      if (response == 0 && responseRefer == 0){
         randomNumber = Math.floor(100000 + Math.random() * 900000);
         emailjs.send("confirm_email","template_y6kfnr8",{
           to_name: username,
@@ -180,10 +223,7 @@ export default function SignUp() {
             alert('Ocurrió un problema al enviar el correo', + err);
            console.log("FAILED. error=", err);
         });
-        const wallet = new Wallet(blockchain, 0);
-        var paramLink = window.location.search.substring(1);
-        var paramLinkParsed = paramLink.split('=')
-        console.log('getURL: '+paramLinkParsed[1]);
+        
         dispacth({
           type: actionTypes.SET_EMAIL,
           email: email,
@@ -214,12 +254,22 @@ export default function SignUp() {
           creation: Date.now().toString(),
           
         });
+        if((referrer === undefined || 
+          referrer === null ||
+          referrer === 'null' )){
+          dispacth({
+            type: actionTypes.SET_REFERRALLIDER,
+            referralLider: null,
+            
+          });
+        } else {
+          dispacth({
+            type: actionTypes.SET_REFERRALLIDER,
+            referralLider: referrer,
+            
+          });
+        }
         
-        dispacth({
-          type: actionTypes.SET_REFERRALLIDER,
-          referralLider: paramLinkParsed[1],
-          
-        });
         dispacth({
           type: actionTypes.SET_REFERRALLINK,
           referralLider: 'iniscoin.com/signup?referral='+username,
@@ -241,11 +291,12 @@ export default function SignUp() {
     } else {
       if(password.length > 6){
       showErrorEmailFormat();
-
-      }
+      dontShowErrorPassword();
+      } else {
       showErrorPassword();
 
-
+      dontShowErrorEmailFormat();
+      }
     }
 
       
@@ -253,7 +304,45 @@ export default function SignUp() {
   
     }; 
 
+
+    function ReturnReferrer(){
+
+      if (paramLinkParsed.length >= 2){
+        return(
+          <TextField
+          variant="outlined"
+          margin="normal"
+          fullWidth
+          name="user"
+          label={paramLinkParsed[1]}
+          type="text"
+          id="referralCode"
+          autoComplete="current-password"
+          disabled
+        />
+          )
+      } else {
+        return(
+        <TextField
+        variant="outlined"
+        margin="normal"
+        fullWidth
+        name="user"
+        label="Referral Code"
+        type="text"
+        id="referralCode"
+        autoComplete="current-password"
+        onChange={(e) => setReferrer(e.target.value)} //settejar el valor del email i guardar-ho dins la variable email
+      />
+        )
+      }
+    }
+
   return (
+    <div style={{ width:'80vmin'}}>
+    <Paper style={{height:'80vmin'}} >
+    <React.Fragment>
+
     <Container component="main" maxWidth="xs">
       <CssBaseline />
       <div className={classes.paper}>
@@ -305,16 +394,9 @@ export default function SignUp() {
             autoComplete="current-password"
             onChange={(e) => setPassword(e.target.value)} //settejar el valor del email i guardar-ho dins la variable email
           />
-          <TextField
-            variant="outlined"
-            margin="normal"
-            fullWidth
-            name="user"
-            label="Referral Code"
-            type="text"
-            id="user"
-            autoComplete="current-password"
-          />
+            <header className='errors' id='referrerError'>This user doesn't exists.</header>
+
+         {ReturnReferrer()}
           <Button
             type="submit"
             fullWidth
@@ -343,6 +425,9 @@ export default function SignUp() {
         <Copyright />
       </Box>
     </Container>
+    </React.Fragment>
+    </Paper>
+    </div>
   );
 }
 

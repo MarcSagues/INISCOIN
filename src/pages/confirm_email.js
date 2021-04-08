@@ -21,6 +21,7 @@ import {randomNumber} from './signup';
 import emailjs from 'emailjs-com';
 
 import{ init } from 'emailjs-com';
+import { Paper } from '@material-ui/core';
 init("user_gyduzqABXjCbxIEE3cTiY");
 
 var isRegistered = true;
@@ -176,6 +177,10 @@ export default function ConfirmEmail() {
 
 }
   return (
+    <div style={{ width:'80vmin'}}>
+    <Paper style={{height:'80vmin'}} >
+    <React.Fragment>
+
     <Container component="main" maxWidth="xs">
       <CssBaseline />
       <div className={classes.paper}>
@@ -226,6 +231,9 @@ export default function ConfirmEmail() {
       </Box>
     
     </Container>
+    </React.Fragment>
+    </Paper>
+  </div>
   );
 }
 

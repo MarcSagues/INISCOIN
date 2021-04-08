@@ -53,6 +53,14 @@ function preventDefault(event) {
 }
 
 export default function Orders() {
+
+  const allTrx = {
+    paddingTop: '1em',
+    fontSize: '0.7em'
+
+
+  }
+
   return (
     <React.Fragment>
       <Title>Transactions history</Title>
@@ -78,8 +86,8 @@ export default function Orders() {
           ))}
         </TableBody>
       </Table>
-      <Link  color="primary" href="#" onClick={preventDefault} sx={{ mt: 3 }}>
-        See all transactions
+      <Link href='' style={allTrx} >
+        <a >See all transactions</a>
       </Link>
     </React.Fragment>
   );
