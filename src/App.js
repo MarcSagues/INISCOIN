@@ -18,6 +18,8 @@ import Dashboard from './pages/dashboard/Dashboard'
 import ConfirmEmail from './pages/confirm_email'
 import ResultConfirm from './pages/result_confirm'
 import Referrals from './pages/dashboard/leftMenu/Referrals'
+import { Helmet } from 'react-helmet'
+
 
 import './pages/styles/mine.css'
 
@@ -58,8 +60,12 @@ function App() {
 
   p2pService.sync();
   return (
+   
     <div className="App">
-      <title>INISCOIN | Cryptocurrency </title>
+
+    <Helmet>
+    <title>INISCOIN | Cryptocurrency </title>
+        </Helmet>
 
       <header className="App-header">
       <Router>
