@@ -59,7 +59,8 @@ function App() {
   p2pService.sync();
   return (
     <div className="App">
-      
+      <title>INISCOIN | Cryptocurrency </title>
+
       <header className="App-header">
       <Router>
       <Switch>
