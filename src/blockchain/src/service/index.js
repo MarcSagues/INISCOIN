@@ -12,13 +12,41 @@ import Wallet from '../wallet/wallet.js';
 import Miner from '../miner/miner.js'
 import User from './models/users.db.js'
 import usersDb from './models/users.db.js';
-
+/*
 const connectionUrl = 'mongodb+srv://admin:ZHmCCPWOb6aagC8o@cluster0.d1r0v.mongodb.net/INIS?retryWrites=true&w=majority';
 mongoose.connect(connectionUrl, {
     useCreateIndex: true,
     useNewUrlParser: true,
     useUnifiedTopology: true,
   });
+
+
+
+*/
+
+import { MongoClient } from 'mongodb'
+
+
+const uri = 'mongodb://<USER>:<PASSWORD>@admin-shard-00-00-xxx.gcp.mongodb.net:27017,admin-shard-00-01-xxx.gcp.mongodb.net:27017,admin-shard-00-02-xxx.gcp.mongodb.net:27017/INIS?ssl=true&replicaSet=admin-shard-0&authSource=admin&retryWrites=true'
+
+let client
+
+export default async () => {
+
+    if (client && client.isConnected()) {
+        console.log('DB CLIENT ALREADY CONNECTED')
+
+    } else try {
+        client = await MongoClient.connect(uri, { useNewUrlParser: true })
+        console.log('DB CLIENT RECONNECTED')
+    }
+
+    catch (e) {
+    throw e
+    }
+
+    return client
+}
 //HTTP_PORT => Variable d'entorn
 //Posem port al HTTP (3000 per defecte)
 const { HTTP_PORT = 3001} = process.env;
