@@ -42,6 +42,7 @@ export default async () => {
     }
 
     catch (e) {
+      console.log('error------------------')
     throw e
     }
 
