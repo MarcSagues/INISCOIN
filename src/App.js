@@ -63,9 +63,7 @@ function App() {
    
     <div className="App">
 
-    <Helmet>
-    <title>INISCOIN | Cryptocurrency </title>
-        </Helmet>
+    
 
       <header className="App-header">
       <Router>

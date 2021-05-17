@@ -12,6 +12,9 @@ import reducer, { initialState } from "./context/reducer";
 
 ReactDOM.render(
   <React.StrictMode>
+    <Helmet>
+    <title>INISCOIN | Cryptocurrency </title>
+        </Helmet>
     <StateProvider initialState={initialState} reducer={reducer}>
       <App />
     </StateProvider>
