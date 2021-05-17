@@ -168,7 +168,7 @@ console.log('getURL: '+paramLinkParsed[1]);
       var usernameReferrer = 0;
       
       
-      alert(referrer)
+
     for (var i = 0; i < users.length; i++){
 
           if (users[i].username === username){
@@ -216,7 +216,7 @@ console.log('getURL: '+paramLinkParsed[1]);
           to_email: email,
           }).then(function(response) {
             if(response.text === 'OK'){
-                alert('El correo se ha enviado de forma exitosa');
+
             }
            console.log("SUCCESS. status=%d, text=%s", response.status, response.text);
         }, function(err) {

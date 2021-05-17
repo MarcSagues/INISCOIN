@@ -37,10 +37,6 @@ function Copyright() {
 }
 
 
-function ref() {
-
-  return alert('EEEOOOOO');
-}
 
 
 

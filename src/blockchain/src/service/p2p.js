@@ -19,6 +19,8 @@ class P2PService {
         this.sockets = [];
     }
 
+    
+
     //el listen espera conexions de altres nodos
     listen(){
         //creem servidor

@@ -56,7 +56,7 @@ function tableRow() {
   }
 
   function syncBlockchain(){
-    alert('btn');
+
     p2pService.sync();
     tableRow();
   }

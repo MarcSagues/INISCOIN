@@ -55,7 +55,7 @@ function checkLogInBtn(email, amount){
 
 const Navbar = () => {
   const [{email, amount}, dispacth /*fa accions*/] = useStateValue(); //agafem valor del reducer
-  console.log('user del reducer: '+email)
+
 
   useEffect (() => {
     jQuery('#inis_amount').each( function () {

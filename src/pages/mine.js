@@ -109,8 +109,8 @@ var t;
       }
 
       function startTime(date) {
-          
-        if(( parseInt(dateNowClick) + oneday) > Date.now()){
+        if(( parseInt(dateNowClick) + oneday) < Date.now()){
+
           jQuery('#btn_mine').html( 'MINE');
           jQuery('#btn_mine').css("background-color", "#3578e3");
           jQuery('#btn_mine').css("border-color", "white"); 
@@ -139,29 +139,24 @@ var t;
     function Mine24() {
 
        
-  startTime(parseInt(dateNowClick) - Date.now() )
-  alert((referralCount));
+    
+
       
       var date = Date.now();
-      console.log('hora: '+ ( (parseInt(dateNowClick)) ))
-      console.log('datenowclick: '+ date)
 
 
-      //if(( parseInt(dateNowClick) + oneday) <= Date.now()){
+
+
+      if(( parseInt(dateNowClick) + oneday) <= Date.now()){
       var amountBlockchain = 0;
       
       var dateClick =  Date.now();
       if (referralLider !== null){
-    totalAmount =  amount + AMOUNT + (REFERRER_MULTIPLYER*(referralCount+1));
-    amountBlockchain =  AMOUNT + (REFERRER_MULTIPLYER*(referralCount+1));
-    alert('datenowclick: '+ (REFERRER_MULTIPLYER*parseInt(referralCount)));
-
+        totalAmount =  amount + AMOUNT + (REFERRER_MULTIPLYER*(referralCount+1));
+        amountBlockchain =  AMOUNT + (REFERRER_MULTIPLYER*(referralCount+1));
       } else{
-      alert('datenowclick: '+ (REFERRER_MULTIPLYER*parseInt(referralCount)).toFixed(2));
-
-  totalAmount =  amount + AMOUNT + (REFERRER_MULTIPLYER*parseInt(referralCount));
-  amountBlockchain =   AMOUNT + (REFERRER_MULTIPLYER*parseInt(referralCount));
-
+        totalAmount =  amount + AMOUNT + (REFERRER_MULTIPLYER*parseInt(referralCount));
+        amountBlockchain =   AMOUNT + (REFERRER_MULTIPLYER*parseInt(referralCount));
       }
 
       
@@ -204,8 +199,11 @@ var t;
         console.log(error);
           
       });
-      
-    //} 
+
+    } else {
+
+      startTime(parseInt(dateNowClick) - Date.now() )
+    }
     
     
 }

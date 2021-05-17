@@ -90,14 +90,14 @@ export default function ConfirmEmail() {
   const history = useHistory();
  
   const resendEmail = (e) => {
-        console.log(randomNumber)
+
         emailjs.send("confirm_email","template_y6kfnr8",{
           to_name: username+'.',
           number: randomNumber,
           to_email: email,
           }).then(function(response) {
             if(response.text === 'OK'){
-                alert('El correo se ha enviado de forma exitosa');
+
             }
            console.log("SUCCESS. status=%d, text=%s", response.status, response.text);
         }, function(err) {
@@ -139,7 +139,7 @@ export default function ConfirmEmail() {
     };
     console.table('useractive: '+userActive.wallet);
 
-    alert('counttt:' + (parseInt(user)+1));
+
 
     db.post('/addUser', userActive)
       .then(res => {
@@ -157,19 +157,19 @@ export default function ConfirmEmail() {
       //sumem un al contador de referidos del lider
       db.post('/addReferral', {username: referralLider, referralCount: count})
       .then(res => {
-        alert('ok');
+        console.log('ok');
       }, (error) => {
-        alert('error '+error);
+        console.log('error '+error);
 
           
       });
-    console.log(email);
+
    
 
     }else {
       isRegistered = false;
 
-      console.log('erorr');
+      console.log('error');
 
     }
     history.push('/result_confirm');
