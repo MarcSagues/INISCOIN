@@ -5,6 +5,7 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import StateProvider from './context/StateProvider'
 import reducer, { initialState } from "./context/reducer";
+import { Helmet } from 'react-helmet'
 
 
 
@@ -12,7 +13,9 @@ import reducer, { initialState } from "./context/reducer";
 
 ReactDOM.render(
   <React.StrictMode>
-    
+    <Helmet>
+    <title>INISCOIN | Cryptocurrency </title>
+        </Helmet>
     <StateProvider initialState={initialState} reducer={reducer}>
       <App />
     </StateProvider>
