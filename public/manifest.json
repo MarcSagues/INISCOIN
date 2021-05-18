@@ -1,6 +1,6 @@
 {
-  "short_name": "INISCOIN",
-  "name": "Blockchain",
+  "short_name": "React App",
+  "name": "Create React App Sample",
   "icons": [
     {
       "src": "favicon.ico",
