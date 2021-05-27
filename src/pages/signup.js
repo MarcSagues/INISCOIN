@@ -133,7 +133,7 @@ export default function SignUp() {
     
       
     
-        axios.get('http://localhost:3001/blocks').then((result) => {
+        db.get('/blocks').then((result) => {
           console.table(result.data);
           setBlockchain(result.data);
           

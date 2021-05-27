@@ -4,7 +4,7 @@ const urlLocalhost = "http://localhost:3001";
 const urlHeroku = "https://inisblockchain.herokuapp.com"
 
 const db = axios.create({
-  baseURL: "http://localhost:3001",
+  baseURL: urlHeroku,
 });
 
 

@@ -19,6 +19,7 @@ import { db } from '../context/axios';
 import './styles/errors.css'
 import jQuery from 'jquery'
 import { Paper } from '@material-ui/core';
+import { MD5 } from 'crypto-js';
 
 
 function Copyright() {
@@ -104,7 +105,8 @@ export default function SignIn() {
     for(let i = 0; i < users.length; i++){
       if(email === users[i].email){
         
-        if(password === users[i].password){
+        if(MD5(password).toString() === users[i].password){
+          console.log(MD5(users[i].password).toString());
           log = true;
           dispacth({
             type: actionTypes.SET_EMAIL,

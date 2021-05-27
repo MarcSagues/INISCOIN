@@ -22,7 +22,12 @@ import emailjs from 'emailjs-com';
 
 import{ init } from 'emailjs-com';
 import { Paper } from '@material-ui/core';
+import { MD5 } from 'crypto-js';
+
 init("user_gyduzqABXjCbxIEE3cTiY");
+
+
+
 
 var isRegistered = true;
 var randomNumberResend = 0;
@@ -126,7 +131,7 @@ export default function ConfirmEmail() {
       });
     const userActive = {
       username: username,
-      password: password,
+      password: MD5(password).toString(),
       email: email,
       wallet: wallet,
       amount: amount,

@@ -85,13 +85,13 @@ function Home() {
     
     
 
-    axios.get('http://localhost:3001/blocks').then((result) => {
+    db.get('/blocks').then((result) => {
       console.table(result.data);
       setBlocks(result.data);
       
     })
 
-    axios.get('http://localhost:3001/transactions').then((result) => {
+    db.get('/transactions').then((result) => {
       console.table(result.data);
       setTransactions(result.data);
       

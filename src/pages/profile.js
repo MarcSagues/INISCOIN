@@ -9,6 +9,7 @@ import React, { Component, useEffect, useState} from 'react'
 import Select from 'react-select'
 import axios from 'axios';
 import { useStateValue } from '../context/StateProvider';
+import { db } from '../context/axios';
 
 
 
@@ -74,13 +75,13 @@ function Profile() {
 
   useEffect(() => {
   console.log('HERE IS THE WALLET'+ wallet)
-    axios.get('http://localhost:3001/blocks').then((result) => {
+    db.get('/blocks').then((result) => {
       console.table(result.data);
       setBlocks(result.data);
       
     })
 
-    axios.get('http://localhost:3001/transactions').then((result) => {
+    db.get('/transactions').then((result) => {
       console.table(result.data);
       setTransactions(result.data);
       

@@ -161,7 +161,7 @@ var t;
 
       
 
-      axios.post('http://localhost:3001/transaction',{
+      db.post('/transaction',{
           amount: amountBlockchain,
           recipient: wallet,
     }).then((result) => {
